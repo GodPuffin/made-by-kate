@@ -10,23 +10,15 @@ const Hero = () => {
             level="h1"
             className="text-3xl leading-10 text-ui-fg-base font-normal"
           >
-            Well done! You have successfully deployed your Medusa store on Railway!
+            Made By Kate
           </Heading>
           <Heading
             level="h2"
             className="text-3xl leading-10 text-ui-fg-subtle font-normal"
           >
-            Need help customizing your store?
+            Coming soon :)
           </Heading>
         </span>
-        <a
-          href="https://funkyton.com/tutorial-customize-your-medusajs-webshop-storefron/"
-          target="_blank"
-        >
-          <h1 style={{ textDecoration: "underline" }}>
-            Visit the tutorial
-          </h1>
-        </a>
       </div>
     </div>
   )
