@@ -2,7 +2,7 @@ import { Region } from "@medusajs/medusa"
 
 import ProductPreview from "@modules/products/components/product-preview"
 import { ProductCollectionWithPreviews } from "types/global"
-import ScrollMarquee from "./Marquee"
+import ScrollMarquee from "./marquee"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 export default function ProductRail({
