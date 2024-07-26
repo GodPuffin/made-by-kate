@@ -12,6 +12,7 @@
     "build": "npm run wait && next build",
     "wait": "node script/awaitBackendReady.js",
     "start": "next start",
+    "lint": "next lint",
     "cypress": "cypress open",
     "analyze": "ANALYZE=true next build"
   },
