@@ -4,7 +4,6 @@ import { AppShell, Burger, Group, ActionIcon, Button, Title, Text } from '@manti
 import { useDisclosure } from '@mantine/hooks';
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import { IconHome, IconShoppingBag, IconUser, IconSearch } from '@tabler/icons-react';
-import Link from 'next/link';
 
 export default function Nav({ children }: { children: React.ReactNode }) {
   const [opened, { toggle }] = useDisclosure(false);
@@ -42,15 +41,15 @@ export default function Nav({ children }: { children: React.ReactNode }) {
         <Title fz={50}>
           Made By Kate
         </Title>
-        <Button variant="light" size="xl" mt="lg" fullWidth leftSection={<IconHome />} component={Link} href="/">
+        <Button variant="light" size="xl" mt="lg" fullWidth leftSection={<IconHome />} onClick={() => { opened && toggle(); }} component={LocalizedClientLink} href="/">
           Home
         </Button>
         {process.env.FEATURE_SEARCH_ENABLED && (
-          <Button variant="light" size="xl" mt="lg" fullWidth leftSection={<IconSearch />} component={Link} href="/search">
+          <Button variant="light" size="xl" mt="lg" fullWidth leftSection={<IconSearch />} onClick={() => { opened && toggle(); }} component={LocalizedClientLink} href="/search">
             Search
           </Button>
         )}
-        <Button variant="light" size="xl" mt="lg" fullWidth leftSection={<IconUser />} component={Link} href="/account">
+        <Button variant="light" size="xl" mt="lg" fullWidth leftSection={<IconUser />} onClick={() => { opened && toggle(); }} component={LocalizedClientLink} href="/account">
           Account
         </Button>
       </AppShell.Navbar>
