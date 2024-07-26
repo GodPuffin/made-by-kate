@@ -1,6 +1,6 @@
 "use client";
 
-import { AppShell, Burger, Group, ActionIcon, Button, Title, Text } from '@mantine/core';
+import { AppShell, Burger, Group, ActionIcon, Button, Title} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import { IconHome, IconShoppingBag, IconUser, IconSearch } from '@tabler/icons-react';
@@ -13,6 +13,8 @@ export default function Nav({ children }: { children: React.ReactNode }) {
       header={{ height: 60 }}
       navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: true, mobile: !opened } }}
       padding="md"
+      transitionDuration={300}
+      transitionTimingFunction="ease"
     >
       <AppShell.Header>
         <Group h="100%" px="md">
