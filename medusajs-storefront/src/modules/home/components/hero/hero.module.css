@@ -1,0 +1,12 @@
+.madeby {
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+    font-weight: 900;
+    letter-spacing: rem(-2px);
+}
+
+.kate {
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+    font-weight: 900;
+    letter-spacing: rem(-2px);
+    z-index: -1;
+}

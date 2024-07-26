@@ -1,6 +1,5 @@
 import React from "react"
 
-import Footer from "@modules/layout/templates/footer"
 import Nav from "@modules/layout/templates/nav"
 
 const Layout: React.FC<{
@@ -8,9 +7,9 @@ const Layout: React.FC<{
 }> = ({ children }) => {
   return (
     <div>
-      <Nav />
+      <Nav>
       <main className="relative">{children}</main>
-      <Footer />
+      </Nav>
     </div>
   )
 }

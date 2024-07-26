@@ -1,27 +1,42 @@
-import { Github } from "@medusajs/icons"
-import { Button, Heading } from "@medusajs/ui"
+'use client';
+
+import { Title } from "@mantine/core";
+import { useMediaQuery } from '@mantine/hooks';
+import classes from './hero.module.css';
+import { ProductCard } from './ProductCard/ProductCard';
 
 const Hero = () => {
+  const isMobile = useMediaQuery('(max-width: 56.25em)');
+
   return (
-    <div className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:p-32 gap-6">
-        <span>
-          <Heading
-            level="h1"
-            className="text-3xl leading-10 text-ui-fg-base font-normal"
-          >
-            Made By Kate
-          </Heading>
-          <Heading
-            level="h2"
-            className="text-3xl leading-10 text-ui-fg-subtle font-normal"
-          >
-            Coming soon :)
-          </Heading>
-        </span>
-      </div>
-    </div>
-  )
+    <>
+      <Title
+        className={classes.madeby}
+        fz={isMobile ? 80 : 150}
+        ta="center"
+        style={{ transform: !isMobile ? 'translate(-165px, 65px)' : 'none' }}
+      >
+        Made by
+      </Title>
+        <ProductCard
+          title="test"
+          img={
+            new URL(
+              'https://store.locomotive.ca/cdn/shop/files/Pro-de-l_Internet-Brass-tShirt_02.jpg?v=1705691448'
+            )
+          }
+        />
+      <Title
+        className={classes.kate}
+        fz={isMobile ? 80 : 150}
+        ta="center"
+        style={{ transform: !isMobile ? 'translate(930px, -150px)' : 'none' }}
+        w={isMobile ? undefined : 200}
+      >
+        Kate
+      </Title>
+    </>
+  );
 }
 
 export default Hero

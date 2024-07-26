@@ -1,66 +1,59 @@
-import { headers } from "next/headers"
-import { Suspense } from "react"
+"use client";
 
-import { listRegions } from "@lib/data"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import CartButton from "@modules/layout/components/cart-button"
-import SideMenu from "@modules/layout/components/side-menu"
+import { AppShell, Burger, Group, ActionIcon, Button, Title, Text } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { IconHome, IconShoppingBag, IconUser, IconSearch } from '@tabler/icons-react';
+import Link from 'next/link';
 
-export default async function Nav() {
-  const regions = await listRegions().then((regions) => regions)
+export default function Nav({ children }: { children: React.ReactNode }) {
+  const [opened, { toggle }] = useDisclosure(false);
 
   return (
-    <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-white border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
-          <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
-              <SideMenu regions={regions} />
-            </div>
-          </div>
-
-          <div className="flex items-center h-full">
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
-            >
-              Medusa Store
-            </LocalizedClientLink>
-          </div>
-
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
+    <AppShell
+      header={{ height: 60 }}
+      navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: true, mobile: !opened } }}
+      padding="md"
+    >
+      <AppShell.Header>
+        <Group h="100%" px="md">
+          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          <Group justify="flex-end" flex="1">
+            <Group ml="xl" gap="sm">
               {process.env.FEATURE_SEARCH_ENABLED && (
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base"
-                  href="/search"
-                  scroll={false}
-                >
-                  Search
-                </LocalizedClientLink>
+                <ActionIcon variant="subtle" component={Link} href="/search" size="xl" visibleFrom="sm">
+                  <IconSearch />
+                </ActionIcon>
               )}
-              <LocalizedClientLink
-                className="hover:text-ui-fg-base"
-                href="/account"
-              >
-                Account
-              </LocalizedClientLink>
-            </div>
-            <Suspense
-              fallback={
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
-                  href="/cart"
-                >
-                  Cart (0)
-                </LocalizedClientLink>
-              }
-            >
-              <CartButton />
-            </Suspense>
-          </div>
-        </nav>
-      </header>
-    </div>
-  )
+              <ActionIcon variant="subtle" component={Link} href="/" size="xl" visibleFrom="sm">
+                <IconHome />
+              </ActionIcon>
+              <ActionIcon variant="subtle" component={Link} href="/account" size="xl" visibleFrom="sm">
+                <IconUser />
+              </ActionIcon>
+              <ActionIcon variant="subtle" component={Link} href="/cart" size="xl">
+                <IconShoppingBag />
+              </ActionIcon>
+            </Group>
+          </Group>
+        </Group>
+      </AppShell.Header>
+      <AppShell.Navbar p="lg" onMouseLeave={() => opened && toggle()}>
+        <Title fz={50}>
+          Made By Kate
+        </Title>
+        <Button variant="light" size="xl" mt="lg" fullWidth leftSection={<IconHome />} component={Link} href="/">
+          Home
+        </Button>
+        {process.env.FEATURE_SEARCH_ENABLED && (
+          <Button variant="light" size="xl" mt="lg" fullWidth leftSection={<IconSearch />} component={Link} href="/search">
+            Search
+          </Button>
+        )}
+        <Button variant="light" size="xl" mt="lg" fullWidth leftSection={<IconUser />} component={Link} href="/account">
+          Account
+        </Button>
+      </AppShell.Navbar>
+      <AppShell.Main>{children}</AppShell.Main>
+    </AppShell>
+  );
 }

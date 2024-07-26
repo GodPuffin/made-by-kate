@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap') format('woff2')
+}
+
+@font-face {
+    font-family: 'Magnat';
+    src: url('/fonts/NeueMagnatDisplayTest-Medium.woff') format(woff)
+}
