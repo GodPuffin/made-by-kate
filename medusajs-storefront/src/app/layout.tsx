@@ -3,9 +3,10 @@ import "styles/globals.css"
 import "styles/mantine.css"
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
-import { theme } from '../../theme';
+import { theme } from '../theme';
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
+
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://localhost:8000"
 
@@ -27,7 +28,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       <body>
         <MantineProvider theme={theme}>
           <Notifications autoClose={4000} limit={3} />
-            {props.children}
+          {props.children}
         </MantineProvider>
       </body>
     </html>

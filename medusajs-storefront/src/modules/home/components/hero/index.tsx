@@ -30,8 +30,7 @@ const Hero = () => {
         className={classes.kate}
         fz={isMobile ? 80 : 150}
         ta="center"
-        style={{ transform: !isMobile ? 'translate(930px, -150px)' : 'none' }}
-        w={isMobile ? undefined : 200}
+        style={{ transform: !isMobile ? 'translate(320px, -160px)' : 'none' }}
       >
         Kate
       </Title>

@@ -2,6 +2,7 @@
 
 import { AppShell, Burger, Group, ActionIcon, Button, Title, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import { IconHome, IconShoppingBag, IconUser, IconSearch } from '@tabler/icons-react';
 import Link from 'next/link';
 
@@ -20,17 +21,17 @@ export default function Nav({ children }: { children: React.ReactNode }) {
           <Group justify="flex-end" flex="1">
             <Group ml="xl" gap="sm">
               {process.env.FEATURE_SEARCH_ENABLED && (
-                <ActionIcon variant="subtle" component={Link} href="/search" size="xl" visibleFrom="sm">
+                <ActionIcon variant="subtle" component={LocalizedClientLink} href="/search" size="xl" visibleFrom="sm">
                   <IconSearch />
                 </ActionIcon>
               )}
-              <ActionIcon variant="subtle" component={Link} href="/" size="xl" visibleFrom="sm">
+              <ActionIcon variant="subtle" component={LocalizedClientLink} href="/" size="xl" visibleFrom="sm">
                 <IconHome />
               </ActionIcon>
-              <ActionIcon variant="subtle" component={Link} href="/account" size="xl" visibleFrom="sm">
+              <ActionIcon variant="subtle" component={LocalizedClientLink} href="/account" size="xl" visibleFrom="sm">
                 <IconUser />
               </ActionIcon>
-              <ActionIcon variant="subtle" component={Link} href="/cart" size="xl">
+              <ActionIcon variant="subtle" component={LocalizedClientLink} href="/cart" size="xl">
                 <IconShoppingBag />
               </ActionIcon>
             </Group>

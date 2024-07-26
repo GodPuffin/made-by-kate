@@ -1,6 +1,7 @@
 'use client';
 
 import { createTheme, MantineColorsTuple } from '@mantine/core';
+import 'styles/mantine.css'
 
 const MBKGreen: MantineColorsTuple = [
   '#f2f8ec',

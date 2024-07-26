@@ -98,6 +98,11 @@ export async function middleware(request: NextRequest) {
   const urlHasCountryCode =
     countryCode && request.nextUrl.pathname.split("/")[1].includes(countryCode)
 
+  if (request.nextUrl.pathname.startsWith('/fonts/')) {
+    // If it's a font request, don't modify the URL
+    return NextResponse.next()
+  }
+
   // check if one of the country codes is in the url
   if (
     urlHasCountryCode &&
