@@ -23,7 +23,7 @@ export default function ProductRail({
         <LocalizedClientLink href={`/collections/${collection.handle}`}>
           <ScrollMarquee text={collection.title}/>
         </LocalizedClientLink>
-      <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-6">
+      <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-10 gap-y-10">
         {products &&
           products.map((product) => (
             <li key={product.id}>
