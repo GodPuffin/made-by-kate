@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
 
   return (
-    <Container size="md" h="700px" p="xl" style={{ textAlign: 'center' }}>
+    <Container size="md" h="700px" p="xl" ta="center" mt={200}>
       <Title order={1}>404 - Page Not Found</Title>
       <Text size="xl" mt="xl" pb="xl">
         Oops! The page you are looking for does not exist.
