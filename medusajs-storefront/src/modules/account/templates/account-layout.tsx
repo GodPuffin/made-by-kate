@@ -1,7 +1,8 @@
+'use client';
+
 import React from "react"
-
+import { Container, Grid, Title, Text, Flex } from "@mantine/core"
 import UnderlineLink from "@modules/common/components/interactive-link"
-
 import AccountNav from "../components/account-nav"
 import { Customer } from "@medusajs/medusa"
 
@@ -15,28 +16,38 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
   children,
 }) => {
   return (
-    <div className="flex-1 small:py-12">
-      <div className="flex-1 content-container h-full max-w-5xl mx-auto bg-white flex flex-col">
-        <div className="grid grid-cols-1  small:grid-cols-[240px_1fr] py-12">
-          <div>{customer && <AccountNav customer={customer} />}</div>
-          <div className="flex-1">{children}</div>
-        </div>
-        <div className="flex flex-col small:flex-row items-end justify-between small:border-t border-gray-200 py-12 gap-8">
+    <Container fluid>
+      <Container>
+        <Grid py="xl">
+          <Grid.Col span={{ base: 12, lg: 3}}>
+            {customer && <AccountNav customer={customer} />}
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, lg: 9}} flex={1}>
+            {children}
+          </Grid.Col>
+        </Grid>
+        <Flex
+          direction="row"
+          align="end"
+          justify="space-between"
+          py="xl"
+          gap="lg"
+        >
           <div>
-            <h3 className="text-xl-semi mb-4">Got questions?</h3>
-            <span className="txt-medium">
+            <Title order={3}>Got questions?</Title>
+            <Text>
               You can find frequently asked questions and answers on our
               customer service page.
-            </span>
+            </Text>
           </div>
           <div>
             <UnderlineLink href="/customer-service">
               Customer Service
             </UnderlineLink>
           </div>
-        </div>
-      </div>
-    </div>
+        </Flex>
+      </Container>
+    </Container>
   )
 }
 

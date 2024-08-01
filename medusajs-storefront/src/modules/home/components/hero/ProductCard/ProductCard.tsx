@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import { Center, Image, AspectRatio } from "@mantine/core";
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function ProductCard() {
+  const isMobile = useMediaQuery('(max-width: 56.25em)');
   const [transform, setTransform] = useState('');
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -44,11 +46,11 @@ export default function ProductCard() {
           onMouseLeave={handleMouseLeave}
         >
           <Image
-            w={300}
-            h={450}
+            w={isMobile ? 200 : 300}
+            h={isMobile ? 300 : 450}
             src='https://i.imgur.com/yvvfd2J.jpeg'
             alt='Made By Kate'
-            radius={50}
+            radius={isMobile ? "lg" : 50}
           />
         </AspectRatio>
     </Center>

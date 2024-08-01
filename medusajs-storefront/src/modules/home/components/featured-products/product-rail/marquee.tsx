@@ -30,37 +30,27 @@ const ScrollMarquee: React.FC<ScrollMarqueeProps> = ({
       lastScrollY.current = window.scrollY;
       scrollOffset.current += scrollDiff * scrollInfluence;
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrollInfluence]);
 
   useEffect(() => {
     if (!contentWidth) return;
-
     let animationFrameId: number;
     let startTime: number | null = null;
-
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
-
       const movement = (elapsed * baseSpeed) / 1000 + scrollOffset.current;
       const position = -(movement % contentWidth);
-
       setTranslateX(position);
-
       if (-position >= contentWidth / 2) {
         startTime = timestamp;
         scrollOffset.current = 0;
       }
-
       animationFrameId = requestAnimationFrame(animate);
     };
-
     animationFrameId = requestAnimationFrame(animate);
-
-    // eslint-disable-next-line consistent-return
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
@@ -69,7 +59,6 @@ const ScrollMarquee: React.FC<ScrollMarqueeProps> = ({
   const createContent = () => {
     const items = [];
     const repetitions = Math.ceil((containerWidth * 2) / ((text.length + 1) * fontSize * 0.5)) + 1;
-
     for (let i = 0; i < repetitions; i += 1) {
       items.push(
         <Text key={`text-${i}`} component="span" fz={fontSize} style={{ verticalAlign: 'middle' }}>
@@ -84,7 +73,6 @@ const ScrollMarquee: React.FC<ScrollMarqueeProps> = ({
         />
       );
     }
-
     return items;
   };
 
@@ -97,6 +85,8 @@ const ScrollMarquee: React.FC<ScrollMarqueeProps> = ({
         overflow: 'hidden',
         whiteSpace: 'nowrap',
         height: `${fontSize * 1.5}px`,
+        maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
       }}
       mb="xl"
     >
