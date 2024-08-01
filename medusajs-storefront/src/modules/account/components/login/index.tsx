@@ -1,10 +1,9 @@
-import { useFormState } from "react-dom"
-
+import { useFormState, useFormStatus } from "react-dom"
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
-import Input from "@modules/common/components/input"
+import { TextInput, Text, PasswordInput, Button } from '@mantine/core';
 import { logCustomerIn } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
-import { SubmitButton } from "@modules/checkout/components/submit-button"
+import { IconEyeCheck, IconEyeOff, IconWritingSign } from "@tabler/icons-react";
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
@@ -12,33 +11,45 @@ type Props = {
 
 const Login = ({ setCurrentView }: Props) => {
   const [message, formAction] = useFormState(logCustomerIn, null)
+  const { pending } = useFormStatus()
 
   return (
     <div className="max-w-sm w-full flex flex-col items-center">
-      <h1 className="text-large-semi uppercase mb-6">Welcome back</h1>
-      <p className="text-center text-base-regular text-ui-fg-base mb-8">
-        Sign in to access an enhanced shopping experience.
-      </p>
+      <Text className="text-large-semi uppercase mb-6">Welcome back</Text>
+      <Text className="text-center text-base-regular text-ui-fg-base mb-8">
+        Sign in to access your information & track orders.
+      </Text>
       <form className="w-full" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
-          <Input
+          <TextInput
             label="Email"
             name="email"
             type="email"
-            title="Enter a valid email address."
-            autoComplete="email"
-            required
+            placeholder="Enter a valid email address."
           />
-          <Input
+          <PasswordInput
             label="Password"
             name="password"
-            type="password"
-            autoComplete="current-password"
-            required
+            visibilityToggleIcon={({ reveal }) =>
+              reveal ? (
+                <IconEyeOff style={{ width: 'var(--psi-icon-size)', height: 'var(--psi-icon-size)' }} />
+              ) : (
+                <IconEyeCheck style={{ width: 'var(--psi-icon-size)', height: 'var(--psi-icon-size)' }} />
+              )
+            }
           />
         </div>
         <ErrorMessage error={message} />
-        <SubmitButton className="w-full mt-6">Sign in</SubmitButton>
+        <Button
+        fullWidth
+        mt="lg"
+        variant="outline"
+        rightSection={<IconWritingSign size={20}/>}
+        loading={pending}
+        type="submit"
+        >
+          Sign in
+        </Button>
       </form>
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
         Not a member?{" "}

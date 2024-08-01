@@ -1,13 +1,12 @@
 "use client"
 
-import { useFormState } from "react-dom"
-
-import Input from "@modules/common/components/input"
+import { useFormState, useFormStatus } from "react-dom"
+import { TextInput, Text, PasswordInput, Button } from '@mantine/core';
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
 import { signUp } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
-import { SubmitButton } from "@modules/checkout/components/submit-button"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { IconConfetti, IconEyeCheck, IconEyeOff } from "@tabler/icons-react";
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
@@ -15,49 +14,52 @@ type Props = {
 
 const Register = ({ setCurrentView }: Props) => {
   const [message, formAction] = useFormState(signUp, null)
+  const { pending } = useFormStatus()
 
   return (
     <div className="max-w-sm flex flex-col items-center">
-      <h1 className="text-large-semi uppercase mb-6">
-        Become a Medusa Store Member
-      </h1>
-      <p className="text-center text-base-regular text-ui-fg-base mb-4">
-        Create your Medusa Store Member profile, and get access to an enhanced
+      <Text className="text-large-semi uppercase mb-6">
+        Become a Made by Kate Store Member
+      </Text>
+      <Text className="text-center text-base-regular text-ui-fg-base mb-4">
+        Create your Made by Kate Store profile, and get access to an enhanced
         shopping experience.
-      </p>
+      </Text>
       <form className="w-full flex flex-col" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
-          <Input
+          <TextInput
             label="First name"
             name="first_name"
-            required
             autoComplete="given-name"
           />
-          <Input
+          <TextInput
             label="Last name"
             name="last_name"
-            required
             autoComplete="family-name"
           />
-          <Input
+          <TextInput
             label="Email"
             name="email"
-            required
             type="email"
             autoComplete="email"
           />
-          <Input label="Phone" name="phone" type="tel" autoComplete="tel" />
-          <Input
+          <TextInput label="Phone" name="phone" type="tel" autoComplete="tel" />
+          <PasswordInput
             label="Password"
             name="password"
-            required
-            type="password"
             autoComplete="new-password"
+            visibilityToggleIcon={({ reveal }) =>
+              reveal ? (
+                <IconEyeOff style={{ width: 'var(--psi-icon-size)', height: 'var(--psi-icon-size)' }} />
+              ) : (
+                <IconEyeCheck style={{ width: 'var(--psi-icon-size)', height: 'var(--psi-icon-size)' }} />
+              )
+            }
           />
         </div>
         <ErrorMessage error={message} />
         <span className="text-center text-ui-fg-base text-small-regular mt-6">
-          By creating an account, you agree to Medusa Store&apos;s{" "}
+          By creating an account, you agree to Made by Kate Store&apos;s{" "}
           <LocalizedClientLink
             href="/content/privacy-policy"
             className="underline"
@@ -73,7 +75,16 @@ const Register = ({ setCurrentView }: Props) => {
           </LocalizedClientLink>
           .
         </span>
-        <SubmitButton className="w-full mt-6">Join</SubmitButton>
+        <Button
+          fullWidth
+          mt="lg"
+          type="submit"
+          loading={pending}
+          variant="outline"
+          rightSection={<IconConfetti size={20} />}
+        >
+          Join
+        </Button>
       </form>
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
         Already a member?{" "}

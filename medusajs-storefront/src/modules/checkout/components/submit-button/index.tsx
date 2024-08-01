@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@medusajs/ui"
+import { Button } from "@mantine/core"
 import React from "react"
 import { useFormStatus } from "react-dom"
 
@@ -10,17 +10,16 @@ export function SubmitButton({
   className,
 }: {
   children: React.ReactNode
-  variant?: "primary" | "secondary" | "transparent" | "danger" | null
+  variant?: string
   className?: string
 }) {
   const { pending } = useFormStatus()
 
   return (
     <Button
-      size="large"
       className={className}
       type="submit"
-      isLoading={pending}
+      loading={pending}
       variant={variant}
     >
       {children}

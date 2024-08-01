@@ -1,16 +1,13 @@
 "use client"
 
 import { Customer } from "@medusajs/medusa"
-import { clx } from "@medusajs/ui"
-import { ArrowRightOnRectangle } from "@medusajs/icons"
+import { NavLink, Text } from '@mantine/core';
 import { useParams, usePathname } from "next/navigation"
 
-import ChevronDown from "@modules/common/icons/chevron-down"
+import { IconArrowBackUp, IconChevronRight, IconGlobe, IconUser, IconMapPin, IconPackage, IconLogout2 } from '@tabler/icons-react';
 import { signOut } from "@modules/account/actions"
-import User from "@modules/common/icons/user"
-import MapPin from "@modules/common/icons/map-pin"
-import Package from "@modules/common/icons/package"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
+
+import LocalizedClientLink from "@modules/common/components/localized-client-link";
 
 const AccountNav = ({
   customer,
@@ -28,15 +25,12 @@ const AccountNav = ({
     <div>
       <div className="small:hidden">
         {route !== `/${countryCode}/account` ? (
-          <LocalizedClientLink
+          <NavLink
+            component={LocalizedClientLink}
             href="/account"
-            className="flex items-center gap-x-2 text-small-regular py-2"
-          >
-            <>
-              <ChevronDown className="transform rotate-90" />
-              <span>Account</span>
-            </>
-          </LocalizedClientLink>
+            label="Account"
+            leftSection={<IconArrowBackUp size={20} />}
+          />
         ) : (
           <>
             <div className="text-xl-semi mb-4 px-8">
@@ -45,57 +39,40 @@ const AccountNav = ({
             <div className="text-base-regular">
               <ul>
                 <li>
-                  <LocalizedClientLink
+                  <NavLink
+                    component={LocalizedClientLink}
                     href="/account/profile"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
-                  >
-                    <>
-                      <div className="flex items-center gap-x-2">
-                        <User size={20} />
-                        <span>Profile</span>
-                      </div>
-                      <ChevronDown className="transform -rotate-90" />
-                    </>
-                  </LocalizedClientLink>
+                    label="Profile"
+                    leftSection={<IconUser size={20} />}
+                    rightSection={<IconChevronRight size="0.8rem" />}
+                  />
                 </li>
                 <li>
-                  <LocalizedClientLink
+                  <NavLink
+                    component={LocalizedClientLink}
                     href="/account/addresses"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
-                  >
-                    <>
-                      <div className="flex items-center gap-x-2">
-                        <MapPin size={20} />
-                        <span>Addresses</span>
-                      </div>
-                      <ChevronDown className="transform -rotate-90" />
-                    </>
-                  </LocalizedClientLink>
+                    label="Addresses"
+                    leftSection={<IconMapPin size={20} />}
+                    rightSection={<IconChevronRight size="0.8rem" />}
+                  />
                 </li>
                 <li>
-                  <LocalizedClientLink
+                  <NavLink
+                    component={LocalizedClientLink}
                     href="/account/orders"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
-                  >
-                    <div className="flex items-center gap-x-2">
-                      <Package size={20} />
-                      <span>Orders</span>
-                    </div>
-                    <ChevronDown className="transform -rotate-90" />
-                  </LocalizedClientLink>
+                    label="Orders"
+                    leftSection={<IconPackage size={20} />}
+                    rightSection={<IconChevronRight size="0.8rem" />}
+                  />
                 </li>
                 <li>
-                  <button
-                    type="button"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8 w-full"
+                  <NavLink
+                    component="button"
+                    label="Log out"
                     onClick={handleLogout}
-                  >
-                    <div className="flex items-center gap-x-2">
-                      <ArrowRightOnRectangle />
-                      <span>Log out</span>
-                    </div>
-                    <ChevronDown className="transform -rotate-90" />
-                  </button>
+                    leftSection={<IconLogout2 size={20} />}
+                    rightSection={<IconChevronRight size="0.8rem" />}
+                  />
                 </li>
               </ul>
             </div>
@@ -105,62 +82,54 @@ const AccountNav = ({
       <div className="hidden small:block">
         <div>
           <div className="pb-4">
-            <h3 className="text-base-semi">Account</h3>
+            <Text size="lg" className="text-base-semi">Account</Text>
           </div>
-          <div className="text-base-regular">
-            <ul className="flex mb-0 justify-start items-start flex-col gap-y-4">
+          <div>
+            <ul className="flex flex-col gap-y-4">
               <li>
-                <AccountNavLink href="/account" route={route!}>
-                  Overview
-                </AccountNavLink>
+                <NavLink
+                  component={LocalizedClientLink}
+                  href="/account"
+                  label="Overview"
+                  leftSection={<IconGlobe size={20} />}
+                />
               </li>
               <li>
-                <AccountNavLink href="/account/profile" route={route!}>
-                  Profile
-                </AccountNavLink>
+                <NavLink
+                  component={LocalizedClientLink}
+                  href="/account/profile"
+                  label="Profile"
+                  leftSection={<IconUser size={20} />}
+                />
               </li>
               <li>
-                <AccountNavLink href="/account/addresses" route={route!}>
-                  Addresses
-                </AccountNavLink>
+                <NavLink
+                  component={LocalizedClientLink}
+                  href="/account/addresses"
+                  label="Addresses"
+                  leftSection={<IconMapPin size={20} />}
+                />
               </li>
               <li>
-                <AccountNavLink href="/account/orders" route={route!}>
-                  Orders
-                </AccountNavLink>
+                <NavLink
+                  component={LocalizedClientLink}
+                  href="/account/orders"
+                  label="Orders"
+                  leftSection={<IconPackage size={20} />}
+                />
               </li>
-              <li className="text-grey-700">
-                <button type="button" onClick={handleLogout}>
-                  Log out
-                </button>
+              <li>
+                <NavLink
+                  onClick={handleLogout}
+                  label="Log out"
+                  leftSection={<IconLogout2 size={20} />}
+                />
               </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-  )
-}
-
-type AccountNavLinkProps = {
-  href: string
-  route: string
-  children: React.ReactNode
-}
-
-const AccountNavLink = ({ href, route, children }: AccountNavLinkProps) => {
-  const { countryCode }: { countryCode: string } = useParams()
-
-  const active = route.split(countryCode)[1] === href
-  return (
-    <LocalizedClientLink
-      href={href}
-      className={clx("text-ui-fg-subtle hover:text-ui-fg-base", {
-        "text-ui-fg-base font-semibold": active,
-      })}
-    >
-      {children}
-    </LocalizedClientLink>
   )
 }
 

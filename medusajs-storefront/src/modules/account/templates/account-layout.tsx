@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react"
-import { Container, Grid, Title, Text, Flex } from "@mantine/core"
+import { Container, Grid, Title, Text, Flex, Center } from "@mantine/core"
 import UnderlineLink from "@modules/common/components/interactive-link"
 import AccountNav from "../components/account-nav"
 import { Customer } from "@medusajs/medusa"
@@ -19,10 +19,10 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
     <Container fluid>
       <Container>
         <Grid py="xl">
-          <Grid.Col span={{ base: 12, lg: 3}}>
+          <Grid.Col span={{ base: 12, lg: 3 }}>
             {customer && <AccountNav customer={customer} />}
           </Grid.Col>
-          <Grid.Col span={{ base: 12, lg: 9}} flex={1}>
+          <Grid.Col span={{ base: 12, lg: 9 }} flex={1}>
             {children}
           </Grid.Col>
         </Grid>
@@ -33,7 +33,7 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
           py="xl"
           gap="lg"
         >
-          <div>
+          <div className="hidden small:block">
             <Title order={3}>Got questions?</Title>
             <Text>
               You can find frequently asked questions and answers on our
