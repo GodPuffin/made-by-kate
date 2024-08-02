@@ -16,7 +16,7 @@ const Login = ({ setCurrentView }: Props) => {
   return (
     <div className="max-w-sm w-full flex flex-col items-center">
       <Text className="text-large-semi uppercase mb-6">Welcome back</Text>
-      <Text className="text-center text-base-regular text-ui-fg-base mb-8">
+      <Text className="text-center text-base-regular mb-8">
         Sign in to access your information & track orders.
       </Text>
       <form className="w-full" action={formAction}>
@@ -51,7 +51,7 @@ const Login = ({ setCurrentView }: Props) => {
           Sign in
         </Button>
       </form>
-      <span className="text-center text-ui-fg-base text-small-regular mt-6">
+      <span className="text-center text-small-regular mt-6">
         Not a member?{" "}
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}

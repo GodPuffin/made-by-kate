@@ -21,7 +21,7 @@ const Register = ({ setCurrentView }: Props) => {
       <Text className="text-large-semi uppercase mb-6">
         Become a Made by Kate Store Member
       </Text>
-      <Text className="text-center text-base-regular text-ui-fg-base mb-4">
+      <Text className="text-center text-base-regular mb-4">
         Create your Made by Kate Store profile, and get access to an enhanced
         shopping experience.
       </Text>
@@ -58,7 +58,7 @@ const Register = ({ setCurrentView }: Props) => {
           />
         </div>
         <ErrorMessage error={message} />
-        <span className="text-center text-ui-fg-base text-small-regular mt-6">
+        <span className="text-center text-small-regular mt-6">
           By creating an account, you agree to Made by Kate Store&apos;s{" "}
           <LocalizedClientLink
             href="/content/privacy-policy"
@@ -86,7 +86,7 @@ const Register = ({ setCurrentView }: Props) => {
           Join
         </Button>
       </form>
-      <span className="text-center text-ui-fg-base text-small-regular mt-6">
+      <span className="text-center text-small-regular mt-6">
         Already a member?{" "}
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}

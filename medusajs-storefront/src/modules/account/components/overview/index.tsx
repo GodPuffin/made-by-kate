@@ -16,7 +16,7 @@ const Overview = ({ customer, orders }: OverviewProps) => {
       <div className="hidden small:block">
         <div className="text-xl-semi flex justify-between items-center mb-4">
           <span>Hello {customer?.first_name}</span>
-          <span className="text-small-regular text-ui-fg-base">
+          <span className="text-small-regular">
             Signed in as:{" "}
             <span className="font-semibold">{customer?.email}</span>
           </span>

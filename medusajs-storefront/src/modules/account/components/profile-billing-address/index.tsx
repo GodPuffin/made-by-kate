@@ -2,13 +2,10 @@
 
 import { Customer, Region } from "@medusajs/medusa"
 import React, { useEffect, useMemo } from "react"
-
-import Input from "@modules/common/components/input"
-import NativeSelect from "@modules/common/components/native-select"
-
-import AccountInfo from "../account-info"
 import { useFormState } from "react-dom"
 import { updateCustomerBillingAddress } from "@modules/account/actions"
+import { TextInput, Select, Grid } from '@mantine/core'
+import AccountInfo from "../account-info"
 
 type MyInformationProps = {
   customer: Omit<Customer, "password_hash">
@@ -88,90 +85,81 @@ const ProfileBillingAddress: React.FC<MyInformationProps> = ({
         isError={!!state.error}
         clearState={clearState}
       >
-        <div className="grid grid-cols-1 gap-y-2">
-          <div className="grid grid-cols-2 gap-x-2">
-            <Input
+        <Grid gutter="md">
+          <Grid.Col span={6}>
+            <TextInput
               label="First name"
               name="billing_address.first_name"
               defaultValue={customer.billing_address?.first_name || undefined}
               required
             />
-            <Input
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <TextInput
               label="Last name"
               name="billing_address.last_name"
               defaultValue={customer.billing_address?.last_name || undefined}
               required
             />
-          </div>
-          <Input
-            label="Company"
-            name="billing_address.company"
-            defaultValue={customer.billing_address?.company || undefined}
-          />
-          <Input
-            label="Address"
-            name="billing_address.address_1"
-            defaultValue={customer.billing_address?.address_1 || undefined}
-            required
-          />
-          <Input
-            label="Apartment, suite, etc."
-            name="billing_address.address_2"
-            defaultValue={customer.billing_address?.address_2 || undefined}
-          />
-          <div className="grid grid-cols-[144px_1fr] gap-x-2">
-            <Input
+          </Grid.Col>
+          <Grid.Col span={12}>
+            <TextInput
+              label="Company"
+              name="billing_address.company"
+              defaultValue={customer.billing_address?.company || undefined}
+            />
+          </Grid.Col>
+          <Grid.Col span={12}>
+            <TextInput
+              label="Address"
+              name="billing_address.address_1"
+              defaultValue={customer.billing_address?.address_1 || undefined}
+              required
+            />
+          </Grid.Col>
+          <Grid.Col span={12}>
+            <TextInput
+              label="Apartment, suite, etc."
+              name="billing_address.address_2"
+              defaultValue={customer.billing_address?.address_2 || undefined}
+            />
+          </Grid.Col>
+          <Grid.Col span={4}>
+            <TextInput
               label="Postal code"
               name="billing_address.postal_code"
               defaultValue={customer.billing_address?.postal_code || undefined}
               required
             />
-            <Input
+          </Grid.Col>
+          <Grid.Col span={8}>
+            <TextInput
               label="City"
               name="billing_address.city"
               defaultValue={customer.billing_address?.city || undefined}
               required
             />
-          </div>
-          <Input
-            label="Province"
-            name="billing_address.province"
-            defaultValue={customer.billing_address?.province || undefined}
-          />
-          <NativeSelect
-            name="billing_address.country_code"
-            defaultValue={customer.billing_address?.country_code || undefined}
-            required
-          >
-            <option value="">-</option>
-            {regionOptions.map((option, i) => {
-              return (
-                <option key={i} value={option.value}>
-                  {option.label}
-                </option>
-              )
-            })}
-          </NativeSelect>
-        </div>
+          </Grid.Col>
+          <Grid.Col span={12}>
+            <TextInput
+              label="Province"
+              name="billing_address.province"
+              defaultValue={customer.billing_address?.province || undefined}
+            />
+          </Grid.Col>
+          <Grid.Col span={12}>
+            <Select
+              label="Country"
+              name="billing_address.country_code"
+              defaultValue={customer.billing_address?.country_code || undefined}
+              data={[{ value: "", label: "-" }, ...regionOptions]}
+              required
+            />
+          </Grid.Col>
+        </Grid>
       </AccountInfo>
     </form>
   )
-}
-
-const mapBillingAddressToFormData = ({ customer }: MyInformationProps) => {
-  return {
-    billing_address: {
-      first_name: customer.billing_address?.first_name || undefined,
-      last_name: customer.billing_address?.last_name || undefined,
-      company: customer.billing_address?.company || undefined,
-      address_1: customer.billing_address?.address_1 || undefined,
-      address_2: customer.billing_address?.address_2 || undefined,
-      city: customer.billing_address?.city || undefined,
-      province: customer.billing_address?.province || undefined,
-      postal_code: customer.billing_address?.postal_code || undefined,
-      country_code: customer.billing_address?.country_code || undefined,
-    },
-  }
 }
 
 export default ProfileBillingAddress

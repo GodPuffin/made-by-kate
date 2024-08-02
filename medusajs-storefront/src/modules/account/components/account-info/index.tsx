@@ -1,9 +1,10 @@
 import { Disclosure } from "@headlessui/react"
-import { Badge, Button, clx } from "@medusajs/ui"
+import { Badge, clx } from "@medusajs/ui"
 import { useEffect } from "react"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
 import { useFormStatus } from "react-dom"
+import { Button } from "@mantine/core"
 
 type AccountInfoProps = {
   label: string
@@ -43,7 +44,7 @@ const AccountInfo = ({
     <div className="text-small-regular">
       <div className="flex items-end justify-between">
         <div className="flex flex-col">
-          <span className="uppercase text-ui-fg-base">{label}</span>
+          <span className="uppercase">{label}</span>
           <div className="flex items-center flex-1 basis-0 justify-end gap-x-4">
             {typeof currentInfo === "string" ? (
               <span className="font-semibold">{currentInfo}</span>
@@ -54,7 +55,7 @@ const AccountInfo = ({
         </div>
         <div>
           <Button
-            variant="secondary"
+            variant="outline"
             className="w-[100px] min-h-[25px] py-1"
             onClick={handleToggle}
             type={state ? "reset" : "button"}
@@ -115,7 +116,7 @@ const AccountInfo = ({
             <div>{children}</div>
             <div className="flex items-center justify-end mt-2">
               <Button
-                isLoading={pending}
+                loading={pending}
                 className="w-full small:max-w-[140px]"
                 type="submit"
               >

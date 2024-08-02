@@ -4,10 +4,9 @@ import { Customer } from "@medusajs/medusa"
 import React, { useEffect } from "react"
 import { useFormState } from "react-dom"
 
-import Input from "@modules/common/components/input"
-
 import AccountInfo from "../account-info"
 import { updateCustomerPhone } from "@modules/account/actions"
+import { TextInput } from "@mantine/core"
 
 type MyInformationProps = {
   customer: Omit<Customer, "password_hash">
@@ -40,7 +39,7 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
         clearState={clearState}
       >
         <div className="grid grid-cols-1 gap-y-2">
-          <Input
+          <TextInput
             label="Phone"
             name="phone"
             type="phone"

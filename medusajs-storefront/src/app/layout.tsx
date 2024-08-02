@@ -26,7 +26,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>
+        <MantineProvider theme={theme} defaultColorScheme="light">
           <Notifications autoClose={4000} limit={3} />
           {props.children}
         </MantineProvider>

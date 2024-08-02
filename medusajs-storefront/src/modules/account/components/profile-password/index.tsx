@@ -3,11 +3,10 @@
 import { Customer } from "@medusajs/medusa"
 import React, { useEffect } from "react"
 
-import Input from "@modules/common/components/input"
-
 import AccountInfo from "../account-info"
 import { updateCustomerPassword } from "@modules/account/actions"
 import { useFormState } from "react-dom"
+import { PasswordInput } from "@mantine/core"
 
 type MyInformationProps = {
   customer: Omit<Customer, "password_hash">
@@ -43,21 +42,18 @@ const ProfileName: React.FC<MyInformationProps> = ({ customer }) => {
         clearState={clearState}
       >
         <div className="grid grid-cols-2 gap-4">
-          <Input
+          <PasswordInput
             label="Old password"
             name="old_password"
             required
-            type="password"
           />
-          <Input
+          <PasswordInput
             label="New password"
-            type="password"
             name="new_password"
             required
           />
-          <Input
+          <PasswordInput
             label="Confirm password"
-            type="password"
             name="confirm_password"
             required
           />
