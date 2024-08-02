@@ -1,3 +1,5 @@
+"use client"
+
 import { LineItem, Region } from "@medusajs/medusa"
 import { Table } from "@medusajs/ui"
 
@@ -13,9 +15,9 @@ type ItemsProps = {
 const Items = ({ items, region }: ItemsProps) => {
   return (
     <div className="flex flex-col">
-      <Divider className="!mb-0" />
-      <Table>
-        <Table.Body>
+      {/* <Divider className="!mb-0" /> */}
+      <table>
+        <tbody>
           {items?.length && region
             ? items
                 .sort((a, b) => {
@@ -27,8 +29,8 @@ const Items = ({ items, region }: ItemsProps) => {
             : Array.from(Array(5).keys()).map((i) => {
                 return <SkeletonLineItem key={i} />
               })}
-        </Table.Body>
-      </Table>
+        </tbody>
+      </table>
     </div>
   )
 }

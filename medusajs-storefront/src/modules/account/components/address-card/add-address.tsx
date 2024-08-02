@@ -2,29 +2,29 @@
 
 import { Region } from "@medusajs/medusa"
 import { Plus } from "@medusajs/icons"
-import { Button, Heading } from "@medusajs/ui"
+import { Heading } from "@medusajs/ui"
 import { useEffect, useState } from "react"
 import { useFormState } from "react-dom"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
 import CountrySelect from "@modules/checkout/components/country-select"
-import Input from "@modules/common/components/input"
-import Modal from "@modules/common/components/modal"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
 import { addCustomerShippingAddress } from "@modules/account/actions"
+import { Button, Modal, Paper, TextInput } from "@mantine/core"
+import { useDisclosure } from "@mantine/hooks"
 
 const AddAddress = ({ region }: { region: Region }) => {
   const [successState, setSuccessState] = useState(false)
-  const { state, open, close: closeModal } = useToggleState(false)
+  const [opened, { open, close }] = useDisclosure(false);
 
   const [formState, formAction] = useFormState(addCustomerShippingAddress, {
     success: false,
     error: null,
   })
 
-  const close = () => {
+  const handleClose = () => {
     setSuccessState(false)
-    closeModal()
+    close()
   }
 
   useEffect(() => {
@@ -42,66 +42,65 @@ const AddAddress = ({ region }: { region: Region }) => {
 
   return (
     <>
-      <button
-        className="border border-ui-border-base rounded-rounded p-5 min-h-[220px] h-full w-full flex flex-col justify-between"
-        onClick={open}
-      >
-        <span className="text-base-semi">New address</span>
-        <Plus />
-      </button>
+      <Paper withBorder shadow="sm">
+        <button
+          className="p-5 min-h-[220px] h-full w-full flex flex-col justify-between"
+          onClick={open}
+        >
+          <span className="text-base-semi">New address</span>
+          <Plus />
+        </button>
+      </Paper>
 
-      <Modal isOpen={state} close={close}>
-        <Modal.Title>
-          <Heading className="mb-2">Add address</Heading>
-        </Modal.Title>
+      <Modal opened={opened} onClose={handleClose} title="Add address">
         <form action={formAction}>
           <Modal.Body>
             <div className="flex flex-col gap-y-2">
               <div className="grid grid-cols-2 gap-x-2">
-                <Input
+                <TextInput
                   label="First name"
                   name="first_name"
                   required
                   autoComplete="given-name"
                 />
-                <Input
+                <TextInput
                   label="Last name"
                   name="last_name"
                   required
                   autoComplete="family-name"
                 />
               </div>
-              <Input
+              <TextInput
                 label="Company"
                 name="company"
                 autoComplete="organization"
               />
-              <Input
+              <TextInput
                 label="Address"
                 name="address_1"
                 required
                 autoComplete="address-line1"
               />
-              <Input
+              <TextInput
                 label="Apartment, suite, etc."
                 name="address_2"
                 autoComplete="address-line2"
               />
               <div className="grid grid-cols-[144px_1fr] gap-x-2">
-                <Input
+                <TextInput
                   label="Postal code"
                   name="postal_code"
                   required
                   autoComplete="postal-code"
                 />
-                <Input
+                <TextInput
                   label="City"
                   name="city"
                   required
                   autoComplete="locality"
                 />
               </div>
-              <Input
+              <TextInput
                 label="Province / State"
                 name="province"
                 autoComplete="address-level1"
@@ -112,27 +111,24 @@ const AddAddress = ({ region }: { region: Region }) => {
                 required
                 autoComplete="country"
               />
-              <Input label="Phone" name="phone" autoComplete="phone" />
+              <TextInput label="Phone" name="phone" autoComplete="phone" />
             </div>
             {formState.error && (
               <div className="text-rose-500 text-small-regular py-2">
                 {formState.error}
               </div>
             )}
-          </Modal.Body>
-          <Modal.Footer>
             <div className="flex gap-3 mt-6">
               <Button
                 type="reset"
-                variant="secondary"
+                variant="outline"
                 onClick={close}
-                className="h-10"
               >
                 Cancel
               </Button>
               <SubmitButton>Save</SubmitButton>
             </div>
-          </Modal.Footer>
+          </Modal.Body>
         </form>
       </Modal>
     </>

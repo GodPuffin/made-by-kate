@@ -1,9 +1,9 @@
 import { Customer, Order } from "@medusajs/medusa"
-import { Container } from "@medusajs/ui"
 import { formatAmount } from "@lib/util/prices"
 
 import ChevronDown from "@modules/common/icons/chevron-down"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { Paper } from "@mantine/core"
 
 type OverviewProps = {
   customer: Omit<Customer, "password_hash"> | null
@@ -30,7 +30,7 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                   <span className="text-3xl-semi leading-none">
                     {getProfileCompletion(customer)}%
                   </span>
-                  <span className="uppercase text-base-regular text-ui-fg-subtle">
+                  <span className="uppercase text-base-regular">
                     Completed
                   </span>
                 </div>
@@ -42,7 +42,7 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                   <span className="text-3xl-semi leading-none">
                     {customer?.shipping_addresses?.length || 0}
                   </span>
-                  <span className="uppercase text-base-regular text-ui-fg-subtle">
+                  <span className="uppercase text-base-regular">
                     Saved
                   </span>
                 </div>
@@ -61,7 +61,7 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                         <LocalizedClientLink
                           href={`/account/orders/details/${order.id}`}
                         >
-                          <Container className="bg-gray-50 flex justify-between items-center p-4">
+                          <Paper withBorder shadow="sm" className="flex justify-between items-center p-4">
                             <div className="grid grid-cols-3 grid-rows-2 text-small-regular gap-x-4 flex-1">
                               <span className="font-semibold">Date placed</span>
                               <span className="font-semibold">
@@ -88,7 +88,7 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                               </span>
                               <ChevronDown className="-rotate-90" />
                             </button>
-                          </Container>
+                          </Paper>
                         </LocalizedClientLink>
                       </li>
                     )

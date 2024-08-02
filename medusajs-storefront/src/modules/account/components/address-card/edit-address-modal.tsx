@@ -1,21 +1,19 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { PencilSquare as Edit, Trash } from "@medusajs/icons"
-import { Button, Heading, Text, clx } from "@medusajs/ui"
+import { clx, Heading } from "@medusajs/ui"
 import { Address, Region } from "@medusajs/medusa"
 
-import useToggleState from "@lib/hooks/use-toggle-state"
 import CountrySelect from "@modules/checkout/components/country-select"
-import Input from "@modules/common/components/input"
-import Modal from "@modules/common/components/modal"
 import {
   deleteCustomerShippingAddress,
   updateCustomerShippingAddress,
 } from "@modules/account/actions"
-import Spinner from "@modules/common/icons/spinner"
 import { useFormState } from "react-dom"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
+import { IconEdit, IconTrash, IconTruckDelivery } from "@tabler/icons-react"
+import { Loader, Modal, Text, Button, TextInput, Paper } from "@mantine/core"
+import { useDisclosure } from "@mantine/hooks"
 
 type EditAddressProps = {
   region: Region
@@ -30,7 +28,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
 }) => {
   const [removing, setRemoving] = useState(false)
   const [successState, setSuccessState] = useState(false)
-  const { state, open, close: closeModal } = useToggleState(false)
+  const [opened, { open, close }] = useDisclosure(false);
 
   const [formState, formAction] = useFormState(updateCustomerShippingAddress, {
     success: false,
@@ -38,9 +36,9 @@ const EditAddress: React.FC<EditAddressProps> = ({
     addressId: address.id,
   })
 
-  const close = () => {
+  const handleClose = () => {
     setSuccessState(false)
-    closeModal()
+    close()
   }
 
   useEffect(() => {
@@ -64,71 +62,64 @@ const EditAddress: React.FC<EditAddressProps> = ({
 
   return (
     <>
-      <div
-        className={clx(
-          "border rounded-rounded p-5 min-h-[220px] h-full w-full flex flex-col justify-between transition-colors",
-          {
-            "border-gray-900": isActive,
-          }
-        )}
-      >
-        <div className="flex flex-col">
-          <Heading className="text-left text-base-semi">
-            {address.first_name} {address.last_name}
-          </Heading>
-          {address.company && (
-            <Text className="txt-compact-small text-ui-fg-base">
-              {address.company}
+      <Paper shadow="sm" withBorder p="lg" className={"min-h-[220px] h-full w-full flex flex-col justify-between transition-colors"}>
+          <div className="flex flex-col">
+            <Heading className="text-left text-base-semi">
+              {address.first_name} {address.last_name}
+            </Heading>
+            {address.company && (
+              <Text className="txt-compact-small">
+                {address.company}
+              </Text>
+            )}
+            <Text className="flex flex-col text-left text-base-regular mt-2">
+              <span>
+                {address.address_1}
+                {address.address_2 && <span>, {address.address_2}</span>}
+              </span>
+              <span>
+                {address.postal_code}, {address.city}
+              </span>
+              <span>
+                {address.province && `${address.province}, `}
+                {address.country_code?.toUpperCase()}
+              </span>
             </Text>
-          )}
-          <Text className="flex flex-col text-left text-base-regular mt-2">
-            <span>
-              {address.address_1}
-              {address.address_2 && <span>, {address.address_2}</span>}
-            </span>
-            <span>
-              {address.postal_code}, {address.city}
-            </span>
-            <span>
-              {address.province && `${address.province}, `}
-              {address.country_code?.toUpperCase()}
-            </span>
-          </Text>
-        </div>
-        <div className="flex items-center gap-x-4">
-          <button
-            className="text-small-regular text-ui-fg-base flex items-center gap-x-2"
-            onClick={open}
-          >
-            <Edit />
-            Edit
-          </button>
-          <button
-            className="text-small-regular text-ui-fg-base flex items-center gap-x-2"
-            onClick={removeAddress}
-          >
-            {removing ? <Spinner /> : <Trash />}
-            Remove
-          </button>
-        </div>
-      </div>
+          </div>
+          <div className="flex items-center gap-x-4">
+            <button
+              className="text-small-regular flex items-center gap-x-2"
+              onClick={open}
+            >
+              <IconEdit size={20} />
+              Edit
+            </button>
+            <button
+              className="text-small-regular flex items-center gap-x-2"
+              onClick={removeAddress}
+            >
+              {removing ? <Loader size={20} /> : <IconTrash size={20} />}
+              Remove
+            </button>
+            {isActive && (
+              <IconTruckDelivery size={20}/>
+            )}
+          </div>
+      </Paper>
 
-      <Modal isOpen={state} close={close}>
-        <Modal.Title>
-          <Heading className="mb-2">Edit address</Heading>
-        </Modal.Title>
+      <Modal opened={opened} onClose={handleClose} title="Edit address">
         <form action={formAction}>
           <Modal.Body>
             <div className="grid grid-cols-1 gap-y-2">
               <div className="grid grid-cols-2 gap-x-2">
-                <Input
+                <TextInput
                   label="First name"
                   name="first_name"
                   required
                   autoComplete="given-name"
                   defaultValue={address.first_name || undefined}
                 />
-                <Input
+                <TextInput
                   label="Last name"
                   name="last_name"
                   required
@@ -136,34 +127,34 @@ const EditAddress: React.FC<EditAddressProps> = ({
                   defaultValue={address.last_name || undefined}
                 />
               </div>
-              <Input
+              <TextInput
                 label="Company"
                 name="company"
                 autoComplete="organization"
                 defaultValue={address.company || undefined}
               />
-              <Input
+              <TextInput
                 label="Address"
                 name="address_1"
                 required
                 autoComplete="address-line1"
                 defaultValue={address.address_1 || undefined}
               />
-              <Input
+              <TextInput
                 label="Apartment, suite, etc."
                 name="address_2"
                 autoComplete="address-line2"
                 defaultValue={address.address_2 || undefined}
               />
               <div className="grid grid-cols-[144px_1fr] gap-x-2">
-                <Input
+                <TextInput
                   label="Postal code"
                   name="postal_code"
                   required
                   autoComplete="postal-code"
                   defaultValue={address.postal_code || undefined}
                 />
-                <Input
+                <TextInput
                   label="City"
                   name="city"
                   required
@@ -171,7 +162,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                   defaultValue={address.city || undefined}
                 />
               </div>
-              <Input
+              <TextInput
                 label="Province / State"
                 name="province"
                 autoComplete="address-level1"
@@ -184,7 +175,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 autoComplete="country"
                 defaultValue={address.country_code || undefined}
               />
-              <Input
+              <TextInput
                 label="Phone"
                 name="phone"
                 autoComplete="phone"
@@ -196,20 +187,17 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 {formState.error}
               </div>
             )}
-          </Modal.Body>
-          <Modal.Footer>
             <div className="flex gap-3 mt-6">
               <Button
                 type="reset"
-                variant="secondary"
+                variant="outline"
                 onClick={close}
-                className="h-10"
               >
                 Cancel
               </Button>
               <SubmitButton>Save</SubmitButton>
             </div>
-          </Modal.Footer>
+          </Modal.Body>
         </form>
       </Modal>
     </>

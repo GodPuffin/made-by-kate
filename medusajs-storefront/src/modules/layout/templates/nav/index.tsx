@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
-import { AppShell, Burger, Group, ActionIcon, Button, Title, useMantineColorScheme, Select, rem, Stack } from '@mantine/core';
+import { AppShell, Burger, Group, ActionIcon, Button, Title, useMantineColorScheme, Select, rem, Stack, Indicator } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Region } from '@medusajs/medusa';
+import { Cart, Region } from '@medusajs/medusa';
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import ReactCountryFlag from "react-country-flag";
 import { updateRegion } from "app/actions";
@@ -16,7 +16,7 @@ type CountryOption = {
   region: string;
 };
 
-export default function Nav({ children, regions }: { children: React.ReactNode; regions: Region[] | null }) {
+export default function Nav({ children, regions, cart }: { children: React.ReactNode; regions: Region[] | null; cart: Cart | null }) {
   const [opened, { toggle }] = useDisclosure(false);
   const { toggleColorScheme } = useMantineColorScheme();
   const [current, setCurrent] = useState<string | null>(null);
@@ -74,9 +74,17 @@ export default function Nav({ children, regions }: { children: React.ReactNode; 
               <ActionIcon variant="subtle" component={LocalizedClientLink} href="/account" size="xl">
                 <IconUser />
               </ActionIcon>
-              <ActionIcon variant="subtle" component={LocalizedClientLink} href="/cart" size="xl">
-                <IconShoppingBag />
-              </ActionIcon>
+              {cart && cart.items.length > 0 ? (
+                <Indicator offset={7} label={cart.items.length} size={16}>
+                  <ActionIcon variant="subtle" component={LocalizedClientLink} href="/cart" size="xl">
+                    <IconShoppingBag />
+                  </ActionIcon>
+                </Indicator>
+              ) : (
+                <ActionIcon variant="subtle" component={LocalizedClientLink} href="/cart" size="xl">
+                  <IconShoppingBag />
+                </ActionIcon>
+              )}
             </Group>
           </Group>
         </Group>

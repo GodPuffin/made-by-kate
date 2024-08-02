@@ -1,7 +1,7 @@
 "use client"
 
 import { Order } from "@medusajs/medusa"
-import { Button } from "@medusajs/ui"
+import { Button } from "@mantine/core"
 
 import OrderCard from "../order-card"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -30,7 +30,7 @@ const OrderOverview = ({ orders }: { orders: Order[] }) => {
       </p>
       <div className="mt-4">
         <LocalizedClientLink href="/" passHref>
-          <Button>Continue shopping</Button>
+          <Button variant="outline">Continue shopping</Button>
         </LocalizedClientLink>
       </div>
     </div>
