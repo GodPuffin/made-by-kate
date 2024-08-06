@@ -119,6 +119,7 @@ const AccountInfo = ({
                 loading={pending}
                 className="w-full small:max-w-[140px]"
                 type="submit"
+                variant="outline"
               >
                 Save changes
               </Button>
