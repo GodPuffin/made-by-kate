@@ -103,7 +103,7 @@ export default function Nav({ children, regions, cart }: { children: React.React
         <Button variant="light" h={80} size="lg" mt="md" fullWidth leftSection={<IconBrandInstagram />} onClick={() => { handleButtonClick(); }} component="a" href="https://www.instagram.com/madebykate.__/" target="_blank">
           Instagram
         </Button>
-        <Button variant="light" h={80} size="lg" mt="md" fullWidth leftSection={<IconSunMoon />} onClick={() => { toggleColorScheme(); handleButtonClick(); }} component="span">
+        <Button variant="light" h={80} size="lg" mt="md" fullWidth leftSection={<IconSunMoon />} onClick={() => { toggleColorScheme(); }} component="span">
           Toggle Dark/Light
         </Button>
         <Stack
