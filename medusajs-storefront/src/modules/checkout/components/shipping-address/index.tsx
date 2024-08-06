@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react"
-import { Address, Cart, Customer } from "@medusajs/medusa"
-import Checkbox from "@modules/common/components/checkbox"
-import Input from "@modules/common/components/input"
+import { Cart, Customer } from "@medusajs/medusa"
 import AddressSelect from "../address-select"
 import CountrySelect from "../country-select"
-import { Container } from "@medusajs/ui"
+import { Checkbox, Paper, TextInput } from "@mantine/core"
 
 const ShippingAddress = ({
   customer,
@@ -65,7 +63,7 @@ const ShippingAddress = ({
 
   const handleChange = (
     e: React.ChangeEvent<
-      HTMLInputElement | HTMLInputElement | HTMLSelectElement
+      HTMLInputElement | HTMLSelectElement
     >
   ) => {
     setFormData({
@@ -77,15 +75,15 @@ const ShippingAddress = ({
   return (
     <>
       {customer && (addressesInRegion?.length || 0) > 0 && (
-        <Container className="mb-6 flex flex-col gap-y-4 p-5">
+        <Paper withBorder className="mb-6 flex flex-col gap-y-4 p-5">
           <p className="text-small-regular">
             {`Hi ${customer.first_name}, do you want to use one of your saved addresses?`}
           </p>
           <AddressSelect addresses={customer.shipping_addresses} cart={cart} />
-        </Container>
+        </Paper>
       )}
       <div className="grid grid-cols-2 gap-4">
-        <Input
+        <TextInput
           label="First name"
           name="shipping_address.first_name"
           autoComplete="given-name"
@@ -93,7 +91,7 @@ const ShippingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="Last name"
           name="shipping_address.last_name"
           autoComplete="family-name"
@@ -101,7 +99,7 @@ const ShippingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="Address"
           name="shipping_address.address_1"
           autoComplete="address-line1"
@@ -109,14 +107,14 @@ const ShippingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="Company"
           name="shipping_address.company"
           value={formData["shipping_address.company"]}
           onChange={handleChange}
           autoComplete="organization"
         />
-        <Input
+        <TextInput
           label="Postal code"
           name="shipping_address.postal_code"
           autoComplete="postal-code"
@@ -124,7 +122,7 @@ const ShippingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="City"
           name="shipping_address.city"
           autoComplete="address-level2"
@@ -140,7 +138,7 @@ const ShippingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="State / Province"
           name="shipping_address.province"
           autoComplete="address-level1"
@@ -157,7 +155,7 @@ const ShippingAddress = ({
         />
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <Input
+        <TextInput
           label="Email"
           name="email"
           type="email"
@@ -167,7 +165,7 @@ const ShippingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="Phone"
           name="shipping_address.phone"
           autoComplete="tel"

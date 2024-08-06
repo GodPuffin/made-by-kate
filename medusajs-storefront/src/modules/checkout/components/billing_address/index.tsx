@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
-import Input from "@modules/common/components/input"
 import CountrySelect from "../country-select"
 import { Cart } from "@medusajs/medusa"
+import { TextInput } from "@mantine/core"
 
 const BillingAddress = ({
   cart,
@@ -39,7 +39,7 @@ const BillingAddress = ({
 
   const handleChange = (
     e: React.ChangeEvent<
-      HTMLInputElement | HTMLInputElement | HTMLSelectElement
+      HTMLInputElement | HTMLSelectElement
     >
   ) => {
     setFormData({
@@ -51,7 +51,7 @@ const BillingAddress = ({
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
-        <Input
+        <TextInput
           label="First name"
           name="billing_address.first_name"
           autoComplete="given-name"
@@ -59,7 +59,7 @@ const BillingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="Last name"
           name="billing_address.last_name"
           autoComplete="family-name"
@@ -67,7 +67,7 @@ const BillingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="Address"
           name="billing_address.address_1"
           autoComplete="address-line1"
@@ -75,14 +75,14 @@ const BillingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="Company"
           name="billing_address.company"
           value={formData["billing_address.company"]}
           onChange={handleChange}
           autoComplete="organization"
         />
-        <Input
+        <TextInput
           label="Postal code"
           name="billing_address.postal_code"
           autoComplete="postal-code"
@@ -90,7 +90,7 @@ const BillingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="City"
           name="billing_address.city"
           autoComplete="address-level2"
@@ -106,14 +106,14 @@ const BillingAddress = ({
           onChange={handleChange}
           required
         />
-        <Input
+        <TextInput
           label="State / Province"
           name="billing_address.province"
           autoComplete="address-level1"
           value={formData["billing_address.province"]}
           onChange={handleChange}
         />
-        <Input
+        <TextInput
           label="Phone"
           name="billing_address.phone"
           autoComplete="tel"

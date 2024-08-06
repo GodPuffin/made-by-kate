@@ -1,5 +1,9 @@
-import SkeletonOrderConfirmed from "@modules/skeletons/templates/skeleton-order-confirmed"
+import { Loader } from "@mantine/core"
 
 export default function Loading() {
-  return <SkeletonOrderConfirmed />
+  return (
+    <div className="flex items-center justify-center w-full h-full">
+      <Loader size={36} />
+    </div>
+  )
 }

@@ -2,11 +2,11 @@
 
 import { useCallback, useContext, useEffect, useMemo, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { RadioGroup } from "@headlessui/react"
+import { Radio, Group, Stack, Text, Center } from "@mantine/core"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { Cart } from "@medusajs/medusa"
 import { CheckCircleSolid, CreditCard } from "@medusajs/icons"
-import { Button, Container, Heading, Text, Tooltip, clx } from "@medusajs/ui"
+import { Container, Heading, Tooltip, clx } from "@medusajs/ui"
 import { CardElement } from "@stripe/react-stripe-js"
 import { StripeCardElementOptions } from "@stripe/stripe-js"
 
@@ -16,6 +16,7 @@ import PaymentContainer from "@modules/checkout/components/payment-container"
 import { setPaymentMethod } from "@modules/checkout/actions"
 import { paymentInfoMap } from "@lib/constants"
 import { StripeContext } from "@modules/checkout/components/payment-wrapper"
+import { Button } from "@mantine/core"
 
 const Payment = ({
   cart,
@@ -43,15 +44,13 @@ const Payment = ({
     return {
       style: {
         base: {
-          fontFamily: "Inter, sans-serif",
-          color: "#424270",
-          "::placeholder": {
-            color: "rgb(107 114 128)",
-          },
+          fontFamily: "Outfit, Inter, sans-serif",
+          backgroundColor: "var(--mantine-bg-color)", // Set background color to match the rest
+          color: "var(--mantine-text-color)", // Set text color to match the rest
         },
       },
       classes: {
-        base: "pt-3 pb-1 block w-full h-11 px-4 mt-0 bg-ui-bg-field border rounded-md appearance-none focus:outline-none focus:ring-0 focus:shadow-borders-interactive-with-active border-ui-border-base hover:bg-ui-bg-field-hover transition-all duration-300 ease-in-out",
+        base: "pt-3 pb-1 block w-full h-11 px-4 mt-0 bg-ui-bg-field border rounded-md appearance-none focus:outline-none focus:ring-0 focus:shadow-borders-interactive-with-active border-ui-border-base transition-all duration-300 ease-in-out",
       },
     }
   }, [])
@@ -100,7 +99,7 @@ const Payment = ({
   }, [isOpen])
 
   return (
-    <div className="bg-white">
+    <div>
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
@@ -119,7 +118,6 @@ const Payment = ({
           <Text>
             <button
               onClick={handleEdit}
-              className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
             >
               Edit
             </button>
@@ -129,31 +127,40 @@ const Payment = ({
       <div>
         {cart?.payment_sessions?.length ? (
           <div className={isOpen ? "block" : "hidden"}>
-            <RadioGroup
+            <Radio.Group
               value={cart.payment_session?.provider_id || ""}
               onChange={(value: string) => handleChange(value)}
+              label="Select a payment method"
             >
-              {cart.payment_sessions
-                .sort((a, b) => {
-                  return a.provider_id > b.provider_id ? 1 : -1
-                })
-                .map((paymentSession) => {
-                  return (
-                    <PaymentContainer
-                      paymentInfoMap={paymentInfoMap}
-                      paymentSession={paymentSession}
+              <Stack>
+                {cart.payment_sessions
+                  .sort((a, b) => (a.provider_id > b.provider_id ? 1 : -1))
+                  .map((paymentSession) => (
+                    <Radio.Card
                       key={paymentSession.id}
-                      selectedPaymentOptionId={
-                        cart.payment_session?.provider_id || null
-                      }
-                    />
-                  )
-                })}
-            </RadioGroup>
+                      value={paymentSession.provider_id}
+                      radius="md"
+                      p="md"
+                    >
+                      <Group wrap="nowrap" align="flex-start">
+                        <Center mt="sm" ml="lg">
+                          <Radio.Indicator />
+                        </Center>
+                        <div>
+                          <Text>{paymentInfoMap[paymentSession.provider_id]?.title}</Text>
+                          <Text size="sm" c="dimmed">
+                            Payment by {paymentSession.provider_id}
+                          </Text>
+                        </div>
+                      </Group>
+                    </Radio.Card>
+                  ))}
+              </Stack>
+            </Radio.Group>
 
             {isStripe && stripeReady && (
               <div className="mt-5 transition-all duration-150 ease-in-out">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
+                <Text className="txt-medium-plus mb-1">
                   Enter your card details:
                 </Text>
 
@@ -162,7 +169,7 @@ const Payment = ({
                   onChange={(e) => {
                     setCardBrand(
                       e.brand &&
-                        e.brand.charAt(0).toUpperCase() + e.brand.slice(1)
+                      e.brand.charAt(0).toUpperCase() + e.brand.slice(1)
                     )
                     setError(e.error?.message || null)
                     setCardComplete(e.complete)
@@ -174,17 +181,17 @@ const Payment = ({
             <ErrorMessage error={error} />
 
             <Button
-              size="large"
+              variant="outline"
               className="mt-6"
               onClick={handleSubmit}
-              isLoading={isLoading}
+              loading={isLoading}
               disabled={(isStripe && !cardComplete) || !cart.payment_session}
             >
               Continue to review
             </Button>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center px-4 py-16 text-ui-fg-base">
+          <div className="flex flex-col items-center justify-center px-4 py-16">
             <Spinner />
           </div>
         )}
@@ -193,10 +200,10 @@ const Payment = ({
           {cart && paymentReady && cart.payment_session && (
             <div className="flex items-start gap-x-1 w-full">
               <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
+                <Text className="txt-medium-plus mb-1">
                   Payment method
                 </Text>
-                <Text className="txt-medium text-ui-fg-subtle">
+                <Text className="txt-medium">
                   {paymentInfoMap[cart.payment_session.provider_id]?.title ||
                     cart.payment_session.provider_id}
                 </Text>
@@ -209,11 +216,11 @@ const Payment = ({
                   )}
               </div>
               <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
+                <Text className="txt-medium-plus mb-1">
                   Payment details
                 </Text>
-                <div className="flex gap-2 txt-medium text-ui-fg-subtle items-center">
-                  <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
+                <div className="flex gap-2 txt-medium items-center">
+                  <Container className="flex items-center h-7 w-fit p-2">
                     {paymentInfoMap[cart.payment_session.provider_id]?.icon || (
                       <CreditCard />
                     )}

@@ -1,7 +1,7 @@
 "use client"
 
 import { Cart, PaymentSession } from "@medusajs/medusa"
-import { Button } from "@medusajs/ui"
+import { Button } from "@mantine/core"
 import { OnApproveActions, OnApproveData } from "@paypal/paypal-js"
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
@@ -9,6 +9,7 @@ import { placeOrder } from "@modules/checkout/actions"
 import React, { useState } from "react"
 import ErrorMessage from "../error-message"
 import Spinner from "@modules/common/icons/spinner"
+import { IconConfetti } from "@tabler/icons-react"
 
 type PaymentButtonProps = {
   cart: Omit<Cart, "refundable_amount" | "refunded_total">
@@ -124,8 +125,9 @@ const StripePaymentButton = ({
       <Button
         disabled={disabled || notReady}
         onClick={handlePayment}
-        size="large"
-        isLoading={submitting}
+        loading={submitting}
+        variant="outline"
+        rightSection={<IconConfetti size={20}/>}
       >
         Place order
       </Button>
@@ -214,9 +216,10 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
     <>
       <Button
         disabled={notReady}
-        isLoading={submitting}
+        loading={submitting}
         onClick={handlePayment}
-        size="large"
+        variant="outline"
+        rightSection={<IconConfetti size={20}/>}
       >
         Place order
       </Button>

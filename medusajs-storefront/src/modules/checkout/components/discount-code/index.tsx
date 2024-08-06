@@ -6,7 +6,6 @@ import { Heading, Label, Text, Tooltip } from "@medusajs/ui"
 import React, { useMemo } from "react"
 import { useFormState } from "react-dom"
 
-import Input from "@modules/common/components/input"
 import Trash from "@modules/common/icons/trash"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
@@ -16,6 +15,7 @@ import {
   submitDiscountForm,
 } from "@modules/checkout/actions"
 import { formatAmount } from "@lib/util/prices"
+import { TextInput } from "@mantine/core"
 
 type DiscountCodeProps = {
   cart: Omit<Cart, "refundable_amount" | "refunded_total">
@@ -56,7 +56,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
   const [message, formAction] = useFormState(submitDiscountForm, null)
 
   return (
-    <div className="w-full bg-white flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="txt-medium">
         {gift_cards.length > 0 && (
           <div className="flex flex-col mb-4">
@@ -117,7 +117,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
-                className="txt-medium text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+                className="txt-medium"
               >
                 Add gift card or discount code
               </button>
@@ -128,13 +128,13 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
             {isOpen && (
               <>
                 <div className="flex w-full gap-x-2 items-center">
-                  <Input
-                    label="Please enter code"
+                  <TextInput
+                    placeholder="Please enter code"
                     name="code"
                     type="text"
                     autoFocus={false}
                   />
-                  <SubmitButton variant="secondary">Apply</SubmitButton>
+                  <SubmitButton variant="subtle">Apply</SubmitButton>
                 </div>
                 <ErrorMessage error={message} />
               </>

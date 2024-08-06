@@ -50,6 +50,10 @@ export default function Nav({ children, regions, cart }: { children: React.React
     }
   };
 
+  const handleButtonClick = () => {
+    if (opened) toggle();
+  };
+
   return (
     <AppShell
       header={{ height: 60 }}
@@ -64,24 +68,24 @@ export default function Nav({ children, regions, cart }: { children: React.React
           <Group justify="flex-end" flex="1">
             <Group ml="xl" gap="sm">
               {process.env.FEATURE_SEARCH_ENABLED && (
-                <ActionIcon variant="subtle" component={LocalizedClientLink} href="/search" size="xl">
+                <ActionIcon variant="subtle" component={LocalizedClientLink} href="/search" size="xl" onClick={handleButtonClick}>
                   <IconSearch />
                 </ActionIcon>
               )}
-              <ActionIcon variant="subtle" component={LocalizedClientLink} href="/" size="xl">
+              <ActionIcon variant="subtle" component={LocalizedClientLink} href="/" size="xl" onClick={handleButtonClick}>
                 <IconHome />
               </ActionIcon>
-              <ActionIcon variant="subtle" component={LocalizedClientLink} href="/account" size="xl">
+              <ActionIcon variant="subtle" component={LocalizedClientLink} href="/account" size="xl" onClick={handleButtonClick}>
                 <IconUser />
               </ActionIcon>
               {cart && cart.items.length > 0 ? (
                 <Indicator offset={7} label={cart.items.length} size={16}>
-                  <ActionIcon variant="subtle" component={LocalizedClientLink} href="/cart" size="xl">
+                  <ActionIcon variant="subtle" component={LocalizedClientLink} href="/cart" size="xl" onClick={handleButtonClick}>
                     <IconShoppingBag />
                   </ActionIcon>
                 </Indicator>
               ) : (
-                <ActionIcon variant="subtle" component={LocalizedClientLink} href="/cart" size="xl">
+                <ActionIcon variant="subtle" component={LocalizedClientLink} href="/cart" size="xl" onClick={handleButtonClick}>
                   <IconShoppingBag />
                 </ActionIcon>
               )}
@@ -93,13 +97,13 @@ export default function Nav({ children, regions, cart }: { children: React.React
         <Title fz={40}>
           Made By Kate
         </Title>
-        <Button variant="light" size="lg" mt="md" fullWidth leftSection={<IconQuestionMark />} onClick={() => { opened && toggle(); }} component={LocalizedClientLink} href="/about">
+        <Button variant="light" h={80} size="lg" mt="md" fullWidth leftSection={<IconQuestionMark />} onClick={() => { handleButtonClick(); }} component={LocalizedClientLink} href="/about">
           About Me
         </Button>
-        <Button variant="light" size="lg" mt="md" fullWidth leftSection={<IconBrandInstagram />} onClick={() => { opened && toggle(); }} component="a" href="https://www.instagram.com/madebykate.__/" target="_blank">
+        <Button variant="light" h={80} size="lg" mt="md" fullWidth leftSection={<IconBrandInstagram />} onClick={() => { handleButtonClick(); }} component="a" href="https://www.instagram.com/madebykate.__/" target="_blank">
           Instagram
         </Button>
-        <Button variant="light" size="lg" mt="md" fullWidth leftSection={<IconSunMoon />} onClick={() => { toggleColorScheme(); }} component="span">
+        <Button variant="light" h={80} size="lg" mt="md" fullWidth leftSection={<IconSunMoon />} onClick={() => { toggleColorScheme(); handleButtonClick(); }} component="span">
           Toggle Dark/Light
         </Button>
         <Stack

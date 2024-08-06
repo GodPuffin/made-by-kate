@@ -14,6 +14,7 @@ import Spinner from "@modules/common/icons/spinner"
 import { useState } from "react"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { Loader, NumberInput } from "@mantine/core"
 
 type ItemProps = {
   item: Omit<LineItem, "beforeInsert">
@@ -46,8 +47,8 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
   }
 
   return (
-    <Table.Row className="w-full">
-      <Table.Cell className="!pl-0 p-4 w-24">
+    <tr className="w-full">
+      <td className="!pl-0 p-4 w-24">
         <LocalizedClientLink
           href={`/products/${handle}`}
           className={clx("flex", {
@@ -57,51 +58,37 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
         >
           <Thumbnail thumbnail={item.thumbnail} size="square" />
         </LocalizedClientLink>
-      </Table.Cell>
+      </td>
 
-      <Table.Cell className="text-left">
-        <Text className="txt-medium-plus text-ui-fg-base">{item.title}</Text>
+      <td className="text-left">
+        <Text className="txt-medium-plus">{item.title}</Text>
         <LineItemOptions variant={item.variant} />
-      </Table.Cell>
+      </td>
 
       {type === "full" && (
-        <Table.Cell>
+        <td>
           <div className="flex gap-2 items-center w-28">
-            <DeleteButton id={item.id} />
-            <CartItemSelect
+            {updating ? <Loader size={20} /> :
+              <DeleteButton id={item.id} />
+            }
+            <NumberInput
               value={item.quantity}
-              onChange={(value) => changeQuantity(parseInt(value.target.value))}
-              className="w-14 h-10 p-4"
-            >
-              {Array.from(
-                {
-                  length: Math.min(
-                    item.variant.inventory_quantity > 0
-                      ? item.variant.inventory_quantity
-                      : 10,
-                    10
-                  ),
-                },
-                (_, i) => (
-                  <option value={i + 1} key={i}>
-                    {i + 1}
-                  </option>
-                )
-              )}
-            </CartItemSelect>
-            {updating && <Spinner />}
+              onChange={(value) => changeQuantity(Number(value))}
+              min={1}
+              max={Math.min(item.variant.inventory_quantity > 0 ? item.variant.inventory_quantity : 10, 10)}
+            />
           </div>
           <ErrorMessage error={error} />
-        </Table.Cell>
+        </td>
       )}
 
       {type === "full" && (
-        <Table.Cell className="hidden small:table-cell">
+        <td className="hidden small:table-cell">
           <LineItemUnitPrice item={item} region={region} style="tight" />
-        </Table.Cell>
+        </td>
       )}
 
-      <Table.Cell className="!pr-0">
+      <td className="!pr-0">
         <span
           className={clx("!pr-0", {
             "flex flex-col items-end h-full justify-center": type === "preview",
@@ -109,14 +96,14 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
         >
           {type === "preview" && (
             <span className="flex gap-x-1 ">
-              <Text className="text-ui-fg-muted">{item.quantity}x </Text>
+              <Text>{item.quantity}x </Text>
               <LineItemUnitPrice item={item} region={region} style="tight" />
             </span>
           )}
           <LineItemPrice item={item} region={region} style="tight" />
         </span>
-      </Table.Cell>
-    </Table.Row>
+      </td>
+    </tr>
   )
 }
 

@@ -1,7 +1,8 @@
 "use client"
 
+import { Table } from "@mantine/core"
 import { LineItem, Region } from "@medusajs/medusa"
-import { Table, clx } from "@medusajs/ui"
+import { clx } from "@medusajs/ui"
 
 import Item from "@modules/cart/components/item"
 import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
@@ -22,7 +23,7 @@ const ItemsPreviewTemplate = ({ items, region }: ItemsTemplateProps) => {
       })}
     >
       <Table>
-        <Table.Body>
+        <Table.Tbody>
           {items && region
             ? items
                 .sort((a, b) => {
@@ -41,7 +42,7 @@ const ItemsPreviewTemplate = ({ items, region }: ItemsTemplateProps) => {
             : Array.from(Array(5).keys()).map((i) => {
                 return <SkeletonLineItem key={i} />
               })}
-        </Table.Body>
+        </Table.Tbody>
       </Table>
     </div>
   )

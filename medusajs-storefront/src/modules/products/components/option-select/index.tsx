@@ -3,6 +3,8 @@ import { clx } from "@medusajs/ui"
 import React from "react"
 
 import { onlyUnique } from "@lib/util/only-unique"
+import { Button } from "@mantine/core"
+import { IconCheck } from "@tabler/icons-react"
 
 type OptionSelectProps = {
   option: ProductOption
@@ -25,20 +27,16 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
       <div className="flex flex-wrap justify-between gap-2">
         {filteredOptions.map((v) => {
           return (
-            <button
+            <Button
               onClick={() => updateOption({ [option.id]: v })}
               key={v}
-              className={clx(
-                "border-ui-border-base bg-ui-bg-subtle border text-small-regular h-10 rounded-rounded p-2 flex-1 ",
-                {
-                  "border-ui-border-interactive": v === current,
-                  "hover:shadow-elevation-card-rest transition-shadow ease-in-out duration-150":
-                    v !== current,
-                }
-              )}
+              className="border-ui-border-base border text-small-regular h-10 rounded-rounded p-2 flex-1"
+              variant={v === current ? "light" : "subtle"}
+              rightSection={v === current ? <IconCheck size={20}/> : ''}
+              fw={v === current ? 900 : 400}
             >
               {v}
-            </button>
+            </Button>
           )
         })}
       </div>

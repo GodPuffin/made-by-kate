@@ -1,6 +1,8 @@
-import { LineItem, Region } from "@medusajs/medusa"
-import { Heading, Table } from "@medusajs/ui"
+"use client"
 
+import { LineItem, Region } from "@medusajs/medusa"
+import { Heading } from "@medusajs/ui"
+import { Table, TableThead, TableTr, TableTh, TableTbody } from '@mantine/core'
 import Item from "@modules/cart/components/item"
 import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
 
@@ -16,32 +18,28 @@ const ItemsTemplate = ({ items, region }: ItemsTemplateProps) => {
         <Heading className="text-[2rem] leading-[2.75rem]">Cart</Heading>
       </div>
       <Table>
-        <Table.Header className="border-t-0">
-          <Table.Row className="txt-medium-plus">
-            <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell>
-            <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Quantity</Table.HeaderCell>
-            <Table.HeaderCell className="hidden small:table-cell">
-              Price
-            </Table.HeaderCell>
-            <Table.HeaderCell className="!pr-0 text-right">
-              Total
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+        <TableThead>
+          <TableTr>
+            <TableTh>Item</TableTh>
+            <TableTh></TableTh>
+            <TableTh>Quantity</TableTh>
+            <TableTh className="hidden small:table-cell">Price</TableTh>
+            <TableTh style={{ textAlign: 'right' }}>Total</TableTh>
+          </TableTr>
+        </TableThead>
+        <TableTbody>
           {items && region
             ? items
                 .sort((a, b) => {
                   return a.created_at > b.created_at ? -1 : 1
                 })
-                .map((item) => {
-                  return <Item key={item.id} item={item} region={region} />
-                })
-            : Array.from(Array(5).keys()).map((i) => {
-                return <SkeletonLineItem key={i} />
-              })}
-        </Table.Body>
+                .map((item) => (
+                  <Item key={item.id} item={item} region={region} />
+                ))
+            : Array.from(Array(5).keys()).map((i) => (
+                <SkeletonLineItem key={i} />
+              ))}
+        </TableTbody>
       </Table>
     </div>
   )
