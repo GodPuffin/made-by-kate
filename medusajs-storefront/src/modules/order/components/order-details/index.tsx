@@ -15,13 +15,13 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
 
   return (
     <div>
-      <Text>
+      {/* <Text>
         We have sent the order confirmation details to{" "}
         <span className="font-semibold">
           {order.email}
         </span>
         .
-      </Text>
+      </Text> */}
       <Text className="mt-2">
         Order date: {new Date(order.created_at).toDateString()}
       </Text>
