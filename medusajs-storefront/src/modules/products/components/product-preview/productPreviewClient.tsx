@@ -5,6 +5,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import { Center, HoverCard, Box, Group, Image, Text, Badge, AspectRatio, Popover } from "@mantine/core";
 import { getProductPrice } from '@lib/util/get-product-price';
 import { ProductPreviewType } from 'types/global';
+import { motion } from 'framer-motion';
 
 type CheapestPrice = ReturnType<typeof getProductPrice>['cheapestPrice'];
 
@@ -35,26 +36,36 @@ export default function ProductPreviewClient({ productPreview, cheapestPrice }: 
     };
 
     return (
-        <LocalizedClientLink href={`/products/${productPreview.handle}`}>
-            <Center>
-                <Box style={{ zIndex: 1 }}>
-                    <AspectRatio
-                        ratio={300 / 450}
-                        style={{
-                            transform,
-                            transition: 'transform 0.3s ease-out',
-                        }}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        <Image
-                            src={productPreview.thumbnail ?? ''}
-                            alt={productPreview.title}
-                            radius={50}
-                        />
-                    </AspectRatio>
-                </Box>
-            </Center>
-        </LocalizedClientLink>
+        <motion.div
+            initial={{ opacity: 0.0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+                delay: 0.3,
+                duration: 0.8,
+                ease: "easeInOut",
+            }}
+        >
+            <LocalizedClientLink href={`/products/${productPreview.handle}`}>
+                <Center>
+                    <Box style={{ zIndex: 1 }}>
+                        <AspectRatio
+                            ratio={300 / 450}
+                            style={{
+                                transform,
+                                transition: 'transform 0.3s ease-out',
+                            }}
+                            onMouseMove={handleMouseMove}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <Image
+                                src={productPreview.thumbnail ?? ''}
+                                alt={productPreview.title}
+                                radius={50}
+                            />
+                        </AspectRatio>
+                    </Box>
+                </Center>
+            </LocalizedClientLink>
+        </motion.div>
     );
 }

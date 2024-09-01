@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useElementSize } from '@mantine/hooks';
 import { Box, Text } from '@mantine/core';
 import { IconStar } from '@tabler/icons-react';
+import { motion } from 'framer-motion';
 
 interface ScrollMarqueeProps {
   text: string;
@@ -77,33 +78,43 @@ const ScrollMarquee: React.FC<ScrollMarqueeProps> = ({
   };
 
   return (
-    <Box
-      ref={containerRef}
-      style={{
-        position: 'relative',
-        width: '100%',
-        overflow: 'hidden',
-        whiteSpace: 'nowrap',
-        height: `${fontSize * 1.5}px`,
-        maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-        WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+    <motion.div
+      initial={{ opacity: 0.0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{
+        delay: 0.3,
+        duration: 0.8,
+        ease: "easeInOut",
       }}
-      mb="xl"
     >
-      <div
-        ref={contentRef}
+      <Box
+        ref={containerRef}
         style={{
-          position: 'absolute',
-          top: '50%',
-          transform: `translateX(${translateX}px) translateY(-50%)`,
-          display: 'inline-flex',
-          alignItems: 'center',
-          willChange: 'transform',
+          position: 'relative',
+          width: '100%',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          height: `${fontSize * 1.5}px`,
+          maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
         }}
+        mb="xl"
       >
-        {createContent()}
-      </div>
-    </Box>
+        <div
+          ref={contentRef}
+          style={{
+            position: 'absolute',
+            top: '50%',
+            transform: `translateX(${translateX}px) translateY(-50%)`,
+            display: 'inline-flex',
+            alignItems: 'center',
+            willChange: 'transform',
+          }}
+        >
+          {createContent()}
+        </div>
+      </Box>
+    </motion.div>
   );
 };
 

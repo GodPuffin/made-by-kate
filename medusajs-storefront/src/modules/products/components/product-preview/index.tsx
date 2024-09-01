@@ -14,7 +14,6 @@ async function ProductPreview({
   isFeatured?: boolean;
   region: Region;
 }) {
-  // Fetch product data server-side
   const pricedProduct = await retrievePricedProductById({
     id: productPreview.id,
     regionId: region.id,
@@ -29,7 +28,6 @@ async function ProductPreview({
     region,
   });
 
-  // Client-side interactive parts wrapped in a client component
   return (
     <ProductPreviewClient 
       productPreview={productPreview}
