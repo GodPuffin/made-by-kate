@@ -44,14 +44,20 @@ const Payment = ({
     return {
       style: {
         base: {
-          fontFamily: "Outfit, Inter, sans-serif",
-          backgroundColor: "var(--mantine-bg-color)", // Set background color to match the rest
-          color: "var(--mantine-text-color)", // Set text color to match the rest
+          // fontFamily: 'inherit',
+          // fontSize: '1rem',
+          // lineHeight: '1.5',
+          // color: 'var(--mantine-color-text)',
+          // '::placeholder': {
+          //   color: 'var(--mantine-color-placeholder)',
+          // },
         },
       },
-      classes: {
-        base: "pt-3 pb-1 block w-full h-11 px-4 mt-0 bg-ui-bg-field border rounded-md appearance-none focus:outline-none focus:ring-0 focus:shadow-borders-interactive-with-active border-ui-border-base transition-all duration-300 ease-in-out",
-      },
+      // classes: {
+      //   base: 'mantine-Input-input mantine-Input-input--base',
+      //   focus: 'mantine-Input-input--focus',
+      //   invalid: 'mantine-Input-input--invalid',
+      // },
     }
   }, [])
 
