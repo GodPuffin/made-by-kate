@@ -25,7 +25,7 @@ export default function CheckoutLayout({
           </LocalizedClientLink>
           <LocalizedClientLink
             href="/"
-            className="txt-compact-xlarge-plus uppercase"
+            className="uppercase"
           >
             Made by Kate
           </LocalizedClientLink>

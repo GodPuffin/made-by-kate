@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import LocalizedClientLink from "@modules/common/components/localized-client-link";
-import { Center, HoverCard, Box, Group, Image, Text, Badge, AspectRatio, Popover } from "@mantine/core";
+import { Center, Box, Image, AspectRatio } from "@mantine/core";
 import { getProductPrice } from '@lib/util/get-product-price';
 import { ProductPreviewType } from 'types/global';
 import { motion } from 'framer-motion';

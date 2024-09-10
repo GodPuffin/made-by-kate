@@ -24,7 +24,8 @@ const StoreTemplate = ({
         <div className="mb-8 text-2xl-semi">
           <h1>All products</h1>
         </div>
-        <Suspense fallback={<SkeletonProductGrid />}>
+        {/* <Suspense fallback={<SkeletonProductGrid />}> */}
+        <Suspense>
           <PaginatedProducts
             sortBy={sortBy || "created_at"}
             page={pageNumber}

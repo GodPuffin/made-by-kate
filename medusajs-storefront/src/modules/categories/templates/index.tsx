@@ -64,7 +64,8 @@ export default function CategoryTemplate({
             </ul>
           </div>
         )}
-        <Suspense fallback={<SkeletonProductGrid />}>
+        {/* <Suspense fallback={<SkeletonProductGrid />}> */}
+        <Suspense>
           <PaginatedProducts
             sortBy={sortBy || "created_at"}
             page={pageNumber}
