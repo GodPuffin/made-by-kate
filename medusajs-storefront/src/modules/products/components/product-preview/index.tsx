@@ -9,10 +9,12 @@ async function ProductPreview({
   productPreview,
   isFeatured,
   region,
+  index,
 }: {
   productPreview: ProductPreviewType;
   isFeatured?: boolean;
-  region: Region;
+  region: Region,
+  index?: number,
 }) {
   const pricedProduct = await retrievePricedProductById({
     id: productPreview.id,
@@ -32,6 +34,7 @@ async function ProductPreview({
     <ProductPreviewClient 
       productPreview={productPreview}
       cheapestPrice={cheapestPrice}
+      index={index}
     />
   );
 }

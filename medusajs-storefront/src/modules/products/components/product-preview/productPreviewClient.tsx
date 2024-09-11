@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 
 type CheapestPrice = ReturnType<typeof getProductPrice>['cheapestPrice'];
 
-export default function ProductPreviewClient({ productPreview, cheapestPrice }: { productPreview: ProductPreviewType, cheapestPrice?: CheapestPrice }) {
+export default function ProductPreviewClient({ productPreview, cheapestPrice, index }: { productPreview: ProductPreviewType, cheapestPrice?: CheapestPrice, index?: number }) {
     const [transform, setTransform] = useState('');
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -40,7 +40,7 @@ export default function ProductPreviewClient({ productPreview, cheapestPrice }: 
             initial={{ opacity: 0.0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{
-                delay: 0.3,
+                delay: index ? index * 0.2 : 0.3,
                 duration: 0.8,
                 ease: "easeInOut",
             }}

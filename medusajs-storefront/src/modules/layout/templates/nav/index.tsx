@@ -1,13 +1,13 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
-import { AppShell, Burger, Group, ActionIcon, Button, Title, useMantineColorScheme, Select, rem, Stack, Indicator } from '@mantine/core';
+import { AppShell, Burger, Group, ActionIcon, Button, Title, useMantineColorScheme, Select, rem, Stack, Indicator, Container } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Cart, Region } from '@medusajs/medusa';
 import LocalizedClientLink from '@modules/common/components/localized-client-link';
 import ReactCountryFlag from "react-country-flag";
 import { updateRegion } from "app/actions";
 import { useParams, usePathname } from "next/navigation";
-import { IconHome, IconShoppingBag, IconUser, IconSearch, IconSunMoon, IconLocation, IconQuestionMark, IconBrandInstagram } from '@tabler/icons-react';
+import { IconHome, IconShoppingBag, IconUser, IconSearch, IconSunMoon, IconLocation, IconQuestionMark, IconBrandInstagram, IconLineHeight } from '@tabler/icons-react';
 
 type CountryOption = {
   value: string;
@@ -64,7 +64,14 @@ export default function Nav({ children, regions, cart }: { children: React.React
     >
       <AppShell.Header>
         <Group h="100%" px="md">
-          <Burger opened={opened} onClick={toggle} size="sm" />
+          <Group>
+          <Button variant="subtle" component={LocalizedClientLink} href="/" size="lg" onClick={handleButtonClick}>
+            <Title>
+              MbK
+            </Title>
+          </Button>
+          <Burger opened={opened} onClick={toggle} size="xs" />
+          </Group>
           <Group justify="flex-end" flex="1">
             <Group ml="xl" gap="sm">
               {process.env.FEATURE_SEARCH_ENABLED && (
@@ -72,9 +79,9 @@ export default function Nav({ children, regions, cart }: { children: React.React
                   <IconSearch />
                 </ActionIcon>
               )}
-              <ActionIcon variant="subtle" component={LocalizedClientLink} href="/" size="xl" onClick={handleButtonClick}>
+              {/* <ActionIcon variant="subtle" component={LocalizedClientLink} href="/" size="xl" onClick={handleButtonClick}>
                 <IconHome />
-              </ActionIcon>
+              </ActionIcon> */}
               <ActionIcon variant="subtle" component={LocalizedClientLink} href="/account" size="xl" onClick={handleButtonClick}>
                 <IconUser />
               </ActionIcon>
@@ -131,7 +138,9 @@ export default function Nav({ children, regions, cart }: { children: React.React
           />
         </Stack>
       </AppShell.Navbar>
-      <AppShell.Main>{children}</AppShell.Main>
+      <AppShell.Main>
+        {children}
+      </AppShell.Main>
     </AppShell>
   );
 }
