@@ -64,14 +64,14 @@ export default function Nav({ children, regions, cart }: { children: React.React
     >
       <AppShell.Header>
         <Group h="100%" px="md">
-          <Group>
+          {/* <Group> */}
           <Button variant="subtle" component={LocalizedClientLink} href="/" size="lg" onClick={handleButtonClick}>
             <Title>
               MbK
             </Title>
           </Button>
-          <Burger opened={opened} onClick={toggle} size="xs" />
-          </Group>
+          {/* <Burger opened={opened} onClick={toggle} size="xs" />
+          </Group> */}
           <Group justify="flex-end" flex="1">
             <Group ml="xl" gap="sm">
               {process.env.FEATURE_SEARCH_ENABLED && (
