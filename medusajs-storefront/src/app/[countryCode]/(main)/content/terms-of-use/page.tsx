@@ -22,7 +22,7 @@ export default function TermsOfUse() {
       <Text size="lg" mt="md">
         <Title order={2} mt="md">3. User Responsibilities</Title>
         <Text>
-          You agree to use our services only for lawful purposes and in a manner that does not infringe the rights of, restrict, or inhibit anyone else's use of the services.
+          You agree to use our services only for lawful purposes and in a manner that does not infringe the rights of, restrict, or inhibit anyone else&apos;s use of the services.
         </Text>
       </Text>
       <Text size="lg" mt="md">
