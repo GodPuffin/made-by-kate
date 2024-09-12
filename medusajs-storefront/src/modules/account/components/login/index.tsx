@@ -25,7 +25,6 @@ const Login = ({ setCurrentView }: Props) => {
             label="Email"
             name="email"
             type="email"
-            placeholder="Enter a valid email address."
           />
           <PasswordInput
             label="Password"
