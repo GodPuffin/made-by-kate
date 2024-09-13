@@ -1,65 +1,42 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import { useElementSize } from '@mantine/hooks';
+import { useElementSize, useViewportSize } from '@mantine/hooks';
 import { Box, Text } from '@mantine/core';
 import { IconStar } from '@tabler/icons-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 interface ScrollMarqueeProps {
   text: string;
   baseSpeed?: number;
   scrollInfluence?: number;
-  fontSize?: number;
+  desktopFontSize?: number;
+  mobileFontSize?: number;
 }
 
 const ScrollMarquee: React.FC<ScrollMarqueeProps> = ({
   text,
   baseSpeed = 50,
   scrollInfluence = 0.1,
-  fontSize = 70,
+  desktopFontSize = 70,
+  mobileFontSize = 40,
 }) => {
   const { ref: containerRef, width: containerWidth } = useElementSize();
   const { ref: contentRef, width: contentWidth } = useElementSize();
-  const lastScrollY = useRef(0);
-  const scrollOffset = useRef(0);
-  const [translateX, setTranslateX] = useState(0);
+  const { width: viewportWidth } = useViewportSize();
+  const [fontSize, setFontSize] = useState(desktopFontSize);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollDiff = window.scrollY - lastScrollY.current;
-      lastScrollY.current = window.scrollY;
-      scrollOffset.current += scrollDiff * scrollInfluence;
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrollInfluence]);
+    setFontSize(viewportWidth < 768 ? mobileFontSize : desktopFontSize);
+  }, [viewportWidth, mobileFontSize, desktopFontSize]);
 
-  useEffect(() => {
-    if (!contentWidth) return;
-    let animationFrameId: number;
-    let startTime: number | null = null;
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const movement = (elapsed * baseSpeed) / 1000 + scrollOffset.current;
-      const position = -(movement % contentWidth);
-      setTranslateX(position);
-      if (-position >= contentWidth / 2) {
-        startTime = timestamp;
-        scrollOffset.current = 0;
-      }
-      animationFrameId = requestAnimationFrame(animate);
-    };
-    animationFrameId = requestAnimationFrame(animate);
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [baseSpeed, contentWidth]);
+  const { scrollY } = useScroll();
+  const baseX = useTransform(scrollY, (value) => value * scrollInfluence);
+  const x = useSpring(baseX, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   const createContent = () => {
     const items = [];
-    const repetitions = Math.ceil((containerWidth * 2) / ((text.length + 1) * fontSize * 0.5)) + 1;
+    const repetitions = Math.ceil((containerWidth * 3) / ((text.length + 1) * fontSize * 0.5)) + 1;
     for (let i = 0; i < repetitions; i += 1) {
       items.push(
         <Text key={`text-${i}`} component="span" fz={fontSize} style={{ verticalAlign: 'middle' }}>
@@ -94,25 +71,34 @@ const ScrollMarquee: React.FC<ScrollMarqueeProps> = ({
           width: '100%',
           overflow: 'hidden',
           whiteSpace: 'nowrap',
-          height: `${fontSize * 1.5}px`,
+          height: `${fontSize * 1.2}px`,
           maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
           WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
         }}
         mb="xl"
       >
-        <div
+        <motion.div
           ref={contentRef}
           style={{
             position: 'absolute',
-            top: '50%',
-            transform: `translateX(${translateX}px) translateY(-50%)`,
             display: 'inline-flex',
             alignItems: 'center',
             willChange: 'transform',
+            x,
+            transform: 'translateY(-50%)',
+            left: '-100%',
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: contentWidth / baseSpeed,
+              ease: "linear",
+            },
           }}
         >
           {createContent()}
-        </div>
+        </motion.div>
       </Box>
     </motion.div>
   );
