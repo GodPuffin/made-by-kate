@@ -144,13 +144,13 @@ export default function Nav({ children, regions, cart }: { children: React.React
             </Group> */}
             <Group justify="flex-end" flex="1">
               <Group ml="xl" gap="sm">
-                {process.env.FEATURE_SEARCH_ENABLED && (
+                {/* {process.env.FEATURE_SEARCH_ENABLED && ( */}
                   <Tooltip label="mod + K" openDelay={1000}>
                     <ActionIcon variant="subtle" onClick={() => Spotlight.open()} size="xl">
                       <IconSearch />
                     </ActionIcon>
                   </Tooltip>
-                )}
+                {/* )} */}
                 {/* <ActionIcon variant="subtle" component={LocalizedClientLink} href="/" size="xl" onClick={handleButtonClick}>
                   <IconHome />
                 </ActionIcon> */}
