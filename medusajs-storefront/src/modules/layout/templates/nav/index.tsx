@@ -90,6 +90,8 @@ export default function Nav({ children, regions, cart }: { children: React.React
                 style={{
                   objectFit: 'cover',
                   borderRadius: '20%',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
                 }}
               />
             </Center>
