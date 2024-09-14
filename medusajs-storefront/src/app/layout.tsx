@@ -1,6 +1,6 @@
 "use client"
 
-import { Metadata } from "next"
+// import { Metadata } from "next"
 import "styles/globals.css"
 import "styles/mantine.css"
 import '@mantine/core/styles.css';
