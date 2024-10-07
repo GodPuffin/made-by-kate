@@ -32,7 +32,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
               key={v}
               className="border-ui-border-base border text-small-regular h-10 rounded-rounded p-2 flex-1"
               variant={v === current ? "light" : "subtle"}
-              rightSection={v === current ? <IconCheck size={20}/> : ''}
+              // rightSection={v === current ? <IconCheck size={20}/> : ''}
               fw={v === current ? 900 : 400}
             >
               {v}
