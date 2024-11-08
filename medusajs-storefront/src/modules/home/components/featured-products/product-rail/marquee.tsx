@@ -11,6 +11,7 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  useVelocity,
 } from "framer-motion";
 
 interface ScrollMarqueeProps {
@@ -36,17 +37,17 @@ const ScrollMarquee: React.FC<ScrollMarqueeProps> = ({
 
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
-  const scrollVelocity = useTransform(scrollY, [0, 1000], [1, 1.5]);
-
-  const smoothVelocity = useSpring(scrollVelocity, {
+  const velocityY = useVelocity(scrollY);
+  const smoothVelocity = useSpring(velocityY, {
     damping: 50,
     stiffness: 400,
   });
 
-  useAnimationFrame((time) => {
-    const baseSpeed = time * 0.05;
-    const currentVelocity = smoothVelocity.get();
-    baseX.set(-baseSpeed * currentVelocity);
+  useAnimationFrame(() => {
+    const baseSpeed = 0.5;
+    const scrollEffect = Math.min(Math.abs(smoothVelocity.get()) / 300, 0.75);
+    const currentVelocity = baseSpeed + scrollEffect;
+    baseX.set(baseX.get() - currentVelocity);
   });
 
   const wrappedX = useTransform(baseX, (x) => {
