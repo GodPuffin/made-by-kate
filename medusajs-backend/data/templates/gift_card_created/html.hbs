@@ -25,12 +25,12 @@
 <body>
   <div class="container">
     <h1>Your Gift Card</h1>
-    <p>Hi {{#if customer.has_account}}{{customer.first_name}}{{else}}{{shipping_address.first_name}}{{/if}},</p>
+    <p>Hi {{#if customer.first_name}}{{customer.first_name}}{{else}}{{shipping_address.first_name}}{{/if}},</p>
     
     <div class="gift-card">
       <h2>Made by Kate Gift Card</h2>
       <p class="code">{{gift_card.code}}</p>
-      <p class="amount">Balance: {{gift_card.value}}</p>
+      <p class="amount">Balance: {{gift_card.balance}}</p>
       {{#if gift_card.ends_at}}
       <p>Valid until: {{gift_card.ends_at}}</p>
       {{/if}}
