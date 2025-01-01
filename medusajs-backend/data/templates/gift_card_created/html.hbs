@@ -1,0 +1,49 @@
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .gift-card { 
+      border: 2px solid #515f4a;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    .code {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin: 15px 0;
+    }
+    .amount {
+      font-size: 20px;
+      color: #515f4a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Your Gift Card</h1>
+    <p>Hi {{#if customer.has_account}}{{customer.first_name}}{{else}}{{shipping_address.first_name}}{{/if}},</p>
+    
+    <div class="gift-card">
+      <h2>Made by Kate Gift Card</h2>
+      <p class="code">{{gift_card.code}}</p>
+      <p class="amount">Balance: {{gift_card.value}}</p>
+      {{#if gift_card.ends_at}}
+      <p>Valid until: {{gift_card.ends_at}}</p>
+      {{/if}}
+    </div>
+
+    <p>To use your gift card:</p>
+    <ol>
+      <li>Shop on our website</li>
+      <li>Enter your gift card code at checkout</li>
+      <li>Your balance will be automatically applied to your purchase</li>
+    </ol>
+
+    <p>Best regards,<br>Made by Kate</p>
+  </div>
+</body>
+</html> 

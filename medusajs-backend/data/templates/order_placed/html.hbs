@@ -1,0 +1,44 @@
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .order-details { margin: 20px 0; }
+    .item { margin: 10px 0; padding: 10px; border-bottom: 1px solid #eee; }
+    .total { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Thank you for your order!</h1>
+    <p>Hi {{#if customer.has_account}}{{customer.first_name}}{{else}}{{shipping_address.first_name}}{{/if}},</p>
+    <p>Your order (#{{order_id}}) has been received and is being processed.</p>
+
+    <div class="order-details">
+      <h2>Order Details:</h2>
+      {{#each items}}
+      <div class="item">
+        <p>{{title}} x {{quantity}}</p>
+        <p>Price: {{unit_price}}</p>
+      </div>
+      {{/each}}
+
+      <div class="total">
+        <p>Subtotal: {{subtotal}}</p>
+        {{#if discount}}
+        <p>Discount: -{{discount_total}}</p>
+        {{/if}}
+        {{#if gift_card}}
+        <p>Gift Card: -{{gift_card_total}}</p>
+        {{/if}}
+        <p>Shipping: {{shipping_total}}</p>
+        <p>Tax: {{tax_total}}</p>
+        <h3>Total: {{total}}</h3>
+      </div>
+    </div>
+
+    <p>We'll send you another email when your order ships.</p>
+    <p>Best regards,<br>Made by Kate</p>
+  </div>
+</body>
+</html> 

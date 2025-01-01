@@ -1,4 +1,5 @@
 const dotenv = require("dotenv");
+const path = require("path");
 
 let ENV_FILE_NAME = "";
 switch (process.env.NODE_ENV) {
@@ -19,7 +20,7 @@ switch (process.env.NODE_ENV) {
 
 try {
   dotenv.config({ path: process.cwd() + "/" + ENV_FILE_NAME });
-} catch (e) { }
+} catch (e) {}
 
 // CORS when consuming Medusa from admin
 const ADMIN_CORS =
@@ -36,26 +37,29 @@ const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
 const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
-const cloudinaryConfigured = CLOUDINARY_CLOUD_NAME && CLOUDINARY_API_KEY && CLOUDINARY_API_SECRET;
+const cloudinaryConfigured =
+  CLOUDINARY_CLOUD_NAME && CLOUDINARY_API_KEY && CLOUDINARY_API_SECRET;
 
 const ADMIN_APP_PORT = process.env.PORT || 7001;
 
+const TEMPLATE_PATH = path.join(process.cwd(), "data", "templates");
+
 const fileServicePlugin = cloudinaryConfigured
   ? {
-    resolve: `medusa-file-cloudinary`,
-    options: {
-      cloud_name: CLOUDINARY_CLOUD_NAME,
-      api_key: CLOUDINARY_API_KEY,
-      api_secret: CLOUDINARY_API_SECRET,
-      secure: true,
-    },
-  }
+      resolve: `medusa-file-cloudinary`,
+      options: {
+        cloud_name: CLOUDINARY_CLOUD_NAME,
+        api_key: CLOUDINARY_API_KEY,
+        api_secret: CLOUDINARY_API_SECRET,
+        secure: true,
+      },
+    }
   : {
-    resolve: `@medusajs/file-local`,
-    options: {
-      upload_dir: "uploads",
-    },
-  };
+      resolve: `@medusajs/file-local`,
+      options: {
+        upload_dir: "uploads",
+      },
+    };
 
 const plugins = [
   `medusa-fulfillment-manual`,
@@ -76,6 +80,20 @@ const plugins = [
     resolve: `medusa-payment-stripe`,
     options: {
       api_key: process.env.STRIPE_API_KEY,
+    },
+  },
+  {
+    resolve: `medusa-plugin-resend`,
+    options: {
+      api_key: process.env.RESEND_API_ID,
+      from: process.env.SES_FROM,
+      template_path: process.env.SES_TEMPLATE_PATH,
+      subject_template_type: process.env.RESEND_SUBJECT_TEMPLATE_TYPE,
+      body_template_type: process.env.RESEND_BODY_TEMPLATE_TYPE,
+      order_placed_template: 'order_placed',
+      order_shipped_template: 'order_shipped',
+      customer_password_reset_template: 'password_reset',
+      gift_card_created_template: 'gift_card_created',
     },
   },
   // {
@@ -108,18 +126,12 @@ const plugins = [
 ];
 
 const modules = {
-  /*eventBus: {
+  eventBus: {
     resolve: "@medusajs/event-bus-redis",
     options: {
       redisUrl: REDIS_URL
     }
-  },
-  cacheService: {
-    resolve: "@medusajs/cache-redis",
-    options: {
-      redisUrl: REDIS_URL
-    }
-  },*/
+  }
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
@@ -130,7 +142,7 @@ const projectConfig = {
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS,
   // Uncomment the following lines to enable REDIS
-  redis_url: REDIS_URL
+  redis_url: REDIS_URL,
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
@@ -138,4 +150,8 @@ module.exports = {
   projectConfig,
   plugins,
   modules,
+  featureFlags: {
+    product_categories: true,
+  },
+  subscribers: ["src/subscribers/*.ts"],
 };

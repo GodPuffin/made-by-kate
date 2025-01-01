@@ -1,0 +1,76 @@
+<html>
+<head>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      line-height: 1.6; 
+      color: #333;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .container { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      padding: 40px 20px;
+      background-color: #ffffff;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .button { 
+      background-color: #515f4a;
+      color: #ffffff !important;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    .warning { 
+      color: #666; 
+      font-size: 0.9em;
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <h1>Made by Kate</h1>
+    </div>
+
+    <h2>Reset Your Password</h2>
+    <p>Hi {{#if customer.has_account}}{{customer.first_name}} {{customer.last_name}}{{else}}{{shipping_address.first_name}} {{shipping_address.last_name}}{{/if}},</p>
+    <p>We received a request to reset your password for your Made by Kate account. Click the button below to create a new password:</p>
+
+    <div style="text-align: center;">
+      <a href="https://madebykate.ca/reset-password?token={{token}}" class="button">Reset Password</a>
+    </div>
+
+    <div class="warning">
+      <strong>Security Notice:</strong>
+      <p>If you didn't request this password reset, you can safely ignore this email. Your password will remain unchanged.</p>
+      <p>For security reasons, this password reset link will expire in 24 hours.</p>
+    </div>
+
+    <div class="footer">
+      <p>Need help? Contact us at support@madebykate.ca</p>
+      <p>Made by Kate</p>
+    </div>
+  </div>
+</body>
+</html> 

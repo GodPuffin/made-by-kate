@@ -1,0 +1,28 @@
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .tracking-info { margin: 20px 0; padding: 15px; background: #f9f9f9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Your Order Has Shipped!</h1>
+    <p>Hi {{#if customer.has_account}}{{customer.first_name}}{{else}}{{shipping_address.first_name}}{{/if}},</p>
+    <p>Great news! Your order (#{{order.display_id}}) has been shipped.</p>
+
+    {{#if tracking_number}}
+    <div class="tracking-info">
+      <h2>Tracking Information</h2>
+      <p>Tracking Number: {{tracking_number}}</p>
+      {{#if tracking_url}}
+      <p><a href="{{tracking_url}}">Track your package</a></p>
+      {{/if}}
+    </div>
+    {{/if}}
+
+    <p>Best regards,<br>Made by Kate</p>
+  </div>
+</body>
+</html> 
