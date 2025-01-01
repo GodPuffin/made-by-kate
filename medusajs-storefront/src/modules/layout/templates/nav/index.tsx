@@ -13,6 +13,7 @@ import { IconHome, IconShoppingBag, IconUser, IconSearch, IconSunMoon, IconLocat
 import { Spotlight, SpotlightActionData } from '@mantine/spotlight';
 import { Text, Center } from '@mantine/core';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image'
 
 type CountryOption = {
   value: string;
@@ -82,7 +83,7 @@ export default function Nav({ children, regions, cart }: { children: React.React
         children: (
           <Group wrap="nowrap" w="100%">
             <Center>
-              <img
+              <Image
                 src={product.thumbnail ?? ''}
                 alt={product.title}
                 width={50}
@@ -106,7 +107,7 @@ export default function Nav({ children, regions, cart }: { children: React.React
         ),
       })));
     }
-  }, [products]);
+  }, [products, router]);
 
   return (
     <>

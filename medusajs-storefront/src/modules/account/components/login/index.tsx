@@ -94,7 +94,7 @@ const Login = ({ setCurrentView }: Props) => {
       </form>
       <div className="flex flex-col items-center mt-4">
         <span className="text-gray-700 text-small-regular">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <button
             onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
             className="underline"
@@ -116,7 +116,7 @@ const Login = ({ setCurrentView }: Props) => {
       >
         <form onSubmit={handleResetPassword}>
           <Text size="sm" mb="md">
-            Enter your email address and we'll send you a link to reset your password.
+            Enter your email address and we&apos;ll send you a link to reset your password.
           </Text>
           <TextInput
             label="Email"
