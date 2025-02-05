@@ -46,9 +46,8 @@ const Login = ({ setCurrentView }: Props) => {
 
   return (
     <div className="max-w-sm w-full flex flex-col items-center">
-      <Text className="text-large-semi uppercase mb-6">Welcome back</Text>
       <Text className="text-center text-base-regular mb-8">
-        Sign in to access your information & track orders.
+        Welcome Back!
       </Text>
       <form className="w-full" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">

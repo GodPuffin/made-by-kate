@@ -18,12 +18,8 @@ const Register = ({ setCurrentView }: Props) => {
 
   return (
     <div className="max-w-sm flex flex-col items-center">
-      <Text className="text-large-semi uppercase mb-6">
-        Become a Made by Kate Store Member
-      </Text>
-      <Text className="text-center text-base-regular mb-4">
-        Create your Made by Kate Store profile, and get access to an enhanced
-        shopping experience.
+      <Text className="text-center text-base-regular mb-8">
+        Create your Made by Kate Store profile.
       </Text>
       <form className="w-full flex flex-col" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
