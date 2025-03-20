@@ -22,14 +22,13 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
                 duration: 0.8,
                 ease: "easeInOut",
               }}
-
               key={image.id}
               className="relative aspect-[29/34] w-full overflow-hidden rounded-3xl"
               id={image.id}
             >
               <Image
                 src={image.url}
-                className="absolute inset-0"
+                className="absolute inset-0 h-full w-full object-cover"
                 alt={`Product image ${index + 1}`}
                 sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
               />
