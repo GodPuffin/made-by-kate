@@ -20,9 +20,9 @@ export default function ProductRail({
 
   return (
     <div className="content-container">
-        <LocalizedClientLink href={`/collections/${collection.handle}`}>
+        {/* <LocalizedClientLink href={`/collections/${collection.handle}`}> */}
           <ScrollMarquee text={collection.title}/>
-        </LocalizedClientLink>
+        {/* </LocalizedClientLink> */}
       <ul className="grid grid-cols-2 small:grid-cols-4 small:gap-x-10 small:gap-y-10 gap-x-5 gap-y-5">
         {products &&
           products.map((product, index) => (

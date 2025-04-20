@@ -33,7 +33,7 @@ export default function ProductCard() {
   };
 
   return (
-    <LocalizedClientLink href="/store">
+    // <LocalizedClientLink href="/store">
     <Center>
         <AspectRatio
           ratio={300 / 450}
@@ -54,6 +54,6 @@ export default function ProductCard() {
           />
         </AspectRatio>
     </Center>
-    </LocalizedClientLink>
+    // </LocalizedClientLink>
   );
 }
