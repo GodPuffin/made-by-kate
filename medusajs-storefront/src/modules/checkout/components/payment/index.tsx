@@ -170,17 +170,19 @@ const Payment = ({
                   Enter your card details:
                 </Text>
 
-                <CardElement
-                  options={useOptions as StripeCardElementOptions}
-                  onChange={(e) => {
-                    setCardBrand(
-                      e.brand &&
-                      e.brand.charAt(0).toUpperCase() + e.brand.slice(1)
-                    )
-                    setError(e.error?.message || null)
-                    setCardComplete(e.complete)
-                  }}
-                />
+                <div className="p-10">
+                  <CardElement
+                    options={useOptions as StripeCardElementOptions}
+                    onChange={(e) => {
+                      setCardBrand(
+                        e.brand &&
+                        e.brand.charAt(0).toUpperCase() + e.brand.slice(1)
+                      )
+                      setError(e.error?.message || null)
+                      setCardComplete(e.complete)
+                    }}
+                  />
+                </div>
               </div>
             )}
 
@@ -226,11 +228,11 @@ const Payment = ({
                   Payment details
                 </Text>
                 <div className="flex gap-2 txt-medium items-center">
-                  <Container className="flex items-center h-7 w-fit p-2">
+                  {/* <Container className="flex items-center h-7 w-fit p-2">
                     {paymentInfoMap[cart.payment_session.provider_id]?.icon || (
                       <CreditCard />
                     )}
-                  </Container>
+                  </Container> */}
                   <Text>
                     {cart.payment_session.provider_id === "stripe" && cardBrand
                       ? cardBrand
